@@ -1,0 +1,30 @@
+Double-negation Shift [DNS], or Kuroda's Conjecture, is a logical
+principle independent of intuitionistic logic, and provable in
+classical logic, whose foundational importance has been realized by
+Kreisel who noticed that DNS proves the double-negation translation of
+the Axiom of Choice. DNS thus allows to prove the relative consistency
+of classical Analysis with respect to intuitionistic Arithmetic [HA]
+(plus DNS). Following Kreisel, Spector showed that the Dialectica
+interpretation of DNS can be proved by functions definable from
+extending higher-type primitive recursion by so called bar
+recursion. This approach, Dialectica interpretation plus bar
+recursion, has so far been the most fruitful one when it comes to
+extracting programs from proofs in classical Analysis, as can be seen
+from Kohlenbach's Proof Mining programme.
+
+Recently, the speaker, based on observations of Herbelin, built a
+logical system around delimited control operators, from the theory of
+programming languages, that can derive DNS in pure logic i.e. in
+absence of arithmetic axioms. In this talk, I will speak about DNS in
+presence of arithmetic, showing that HA+DNS still satisfies the
+Disjunction and Existence properties and can hence be considered a
+constructive logical system. Moreover, HA+DNS satisfies a form of
+Church's Rule that says that from a proof of a closed sentence,
+\forall n \exists m (A(n,m)), one can extract a recursive function f 
+such that \forall n (A(n,f(n))) is provable. However, it is a known 
+fact that DNS refutes the formal version of Church's Thesis. 
+I will discuss these and related issues from the meta-theory of 
+constructive systems. At the end, I will show an application of DNS 
+(joint work with Keiko Nakata), based on work of Veldman, to 
+extracting a new realizer for Open Induction on Cantor space by 
+delimited control operators.

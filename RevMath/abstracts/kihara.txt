@@ -1,0 +1,7 @@
+We study a hierarchy of variants of K\"onig's lemma for infinite
+binary trees with finitely many infinite paths, in the context of the
+Weihrauch degrees. The principle that every Cauchy real has a binary
+expansion is shown to be constructively equivalent to K\"onig's lemma
+for infinite binary trees in which every level has at most two nodes,
+which is also Weihrauch equivalent to K\"onig's lemma for infinite
+binary trees with at most two paths.

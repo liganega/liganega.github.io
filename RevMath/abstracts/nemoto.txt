@@ -1,0 +1,17 @@
+Determinacy of infinite games is one of oldest result in
+Friedman-Simpson's reverse mathematics and have been investigated by a
+lot of researchers.
+[Veldman 09] formulated determinacy in intuitionistic mathematics. His
+unpublished note also consider it from the viewpoint of reverse
+mathematics in intuitionistic setting.
+In this talk, we see some similarity and dissimilarity between
+determinacy in two kinds of reverse mathematics.
+
+[Nemoto, Medsalem and Tanaka 09]  Infinite games in the Cantor space
+and subsystems of second order arithmetic, Mathematical Logic
+Quarterly, Volume 53, Issue 3 (2007), pp. 226 - 236.
+
+[Veldman 09] The Problem of Determinacy of Infinite Games from an
+Intuitionistic Point of View,
+Games: Unifying Logic, Language, and Philosophy, Logic, Epistemology,
+and the Unity of Science Volume 15, 2009, pp 351-370

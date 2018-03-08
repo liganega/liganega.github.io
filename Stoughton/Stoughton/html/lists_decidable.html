@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>lists_decidable</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library lists_decidable</h1>
+
+<div class="code">
+</div>
+
+<div class="doc">
+<a name="lab15"></a><h1 class="section">Extra Lemmata about Lists</h1>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+This library expands the standard library <span class="inlinecode"><span class="id" type="var">Coq.Lists.List</span></span>
+   where the base set <span class="inlinecode"><span class="id" type="var">A</span></span> is a decidable type with respect to
+   Coq's equality <span class="inlinecode"><span class="id" type="var">eq</span></span>.
+
+<br/> <br/>
+   One could even generalize over the equality like the standard
+   libraries such as <span class="inlinecode"><span class="id" type="var">DecidableType</span></span>, <span class="inlinecode"><span class="id" type="var">DecidableTypeEx</span></span>, etc.
+   However, we follow the simpler way. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Set</span> <span class="id" type="keyword">Implicit</span> <span class="id" type="var">Arguments</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#"><span class="id" type="library">Coq.Lists.List</span></a>.<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Arith.Arith.html#"><span class="id" type="library">Coq.Arith.Arith</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab16"></a><h2 class="section">Extra properties about lists</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+Notations for <span class="inlinecode"><span class="id" type="var">In</span></span> and <span class="inlinecode">~ <span class="id" type="var">In</span></span> 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="var">Notation </span><a name="::x_'@'_x"><span class="id" type="notation">"</span></a> x @ l " := (<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#In"><span class="id" type="definition">In</span></a> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70).<br/>
+<span class="id" type="var">Notation </span><a name="::x_'#'_x"><span class="id" type="notation">"</span></a> x # l " := (<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:'~'_x"><span class="id" type="notation">~</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#In"><span class="id" type="definition">In</span></a> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70).<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_or_app"><span class="id" type="lemma">in_or_app</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_app_or"><span class="id" type="lemma">in_app_or</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="in_cons_1"><span class="id" type="lemma">in_cons_1</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">A</span>), <br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">b</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">a</span><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a><span class="id" type="var">l</span><a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">b</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">l</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">until</span> 1; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">intuition</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#in_cons_1"><span class="id" type="lemma">in_cons_1</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_eq"><span class="id" type="lemma">in_eq</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_cons"><span class="id" type="lemma">in_cons</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="in_app_1"><span class="id" type="lemma">in_app_1</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>; <span class="id" type="tactic">auto</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="in_app_2"><span class="id" type="lemma">in_app_2</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">m</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>; <span class="id" type="tactic">auto</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#in_app_1"><span class="id" type="lemma">in_app_1</span></a> <a class="idref" href="lists_decidable.html#in_app_2"><span class="id" type="lemma">in_app_2</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_app_1"><span class="id" type="lemma">notin_app_1</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">m</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intuition</span>; <span class="id" type="tactic">elim</span> (<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_app_or"><span class="id" type="lemma">in_app_or</span></a> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H1</span>); <span class="id" type="tactic">assumption</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_app_2"><span class="id" type="lemma">notin_app_2</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'/\'_x"><span class="id" type="notation">/\</span></a> <span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">m</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_app_3"><span class="id" type="lemma">notin_app_3</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt; <span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>; <span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_app_4"><span class="id" type="lemma">notin_app_4</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt; <span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">m</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>; <span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#notin_app_1"><span class="id" type="lemma">notin_app_1</span></a> <a class="idref" href="lists_decidable.html#notin_app_2"><span class="id" type="lemma">notin_app_2</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#notin_app_3"><span class="id" type="lemma">notin_app_3</span></a> <a class="idref" href="lists_decidable.html#notin_app_4"><span class="id" type="lemma">notin_app_4</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_cons_1"><span class="id" type="lemma">notin_cons_1</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">b</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <span class="id" type="var">l</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_cons_2"><span class="id" type="lemma">notin_cons_2</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">A</span>)(<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">b</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <span class="id" type="var">l</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_cons_3"><span class="id" type="lemma">notin_cons_3</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">b</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="var">b</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <span class="id" type="var">l</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">with</span> <span class="id" type="var">datatypes</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#notin_cons_1"><span class="id" type="lemma">notin_cons_1</span></a> <a class="idref" href="lists_decidable.html#notin_cons_2"><span class="id" type="lemma">notin_cons_2</span></a> <a class="idref" href="lists_decidable.html#notin_cons_3"><span class="id" type="lemma">notin_cons_3</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_singleton"><span class="id" type="lemma">notin_singleton</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:'~'_x"><span class="id" type="notation">~</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#In"><span class="id" type="definition">In</span></a> <span class="id" type="var">b</span> (<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#nil"><span class="id" type="constructor">nil</span></a>).<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_empty"><span class="id" type="lemma">notin_empty</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:'~'_x"><span class="id" type="notation">~</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#In"><span class="id" type="definition">In</span></a> <span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#nil"><span class="id" type="constructor">nil</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#notin_singleton"><span class="id" type="lemma">notin_singleton</span></a> <a class="idref" href="lists_decidable.html#notin_empty"><span class="id" type="lemma">notin_empty</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_app_or"><span class="id" type="lemma">notin_app_or</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>) (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt; <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'/\'_x"><span class="id" type="notation">/\</span></a> <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">m</span>.<br/>
+<span class="id" type="var">Admitted</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <a name="notin_or_app"><span class="id" type="lemma">notin_or_app</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> (<span class="id" type="var">l</span> <span class="id" type="var">m</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <span class="id" type="var">A</span>) (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'/\'_x"><span class="id" type="notation">/\</span></a> <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a>.<br/>
+<span class="id" type="var">Admitted</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Tactic Notation</span> "destr_app" :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="var">H</span> : ?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l1</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l2</span> |- <span class="id" type="var">_</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">elim</span> (<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#in_app_or"><span class="id" type="lemma">in_app_or</span></a> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span> <span class="id" type="var">x</span> <span class="id" type="var">H</span>); <span class="id" type="tactic">clear</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">intros</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="var">H</span> : ?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l1</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l2</span> |- <span class="id" type="var">_</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">elim</span> (<a class="idref" href="lists_decidable.html#notin_app_or"><span class="id" type="axiom">notin_app_or</span></a> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span> <span class="id" type="var">x</span> <span class="id" type="var">H</span>); <span class="id" type="tactic">clear</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">intros</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| |- ?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l1</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l2</span>       =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> (<a class="idref" href="lists_decidable.html#notin_or_app"><span class="id" type="axiom">notin_or_app</span></a> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span> <span class="id" type="var">x</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab17"></a><h2 class="section">Lists on Decidable Type</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+A type <span class="inlinecode"><span class="id" type="var">A</span></span> is <i>decidable</i> when the equality on <span class="inlinecode"><span class="id" type="var">A</span></span> is decidable:
+   <br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>), {<span class="id" type="var">x</span> = <span class="id" type="var">y</span>} + {<span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span>}
+<br/> <br/>
+</span>
+<br/> <br/>
+   Definitions and lemmata below are hold for any decidable base type
+   <span class="inlinecode"><span class="id" type="var">A</span></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Module</span> <span class="id" type="keyword">Type</span> <a name="DecidableType"><span class="id" type="module">DecidableType</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Parameter</span> <span class="id" type="keyword">Inline</span> <a name="DecidableType.X"><span class="id" type="axiom">X</span></a> : <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Axiom</span> <a name="DecidableType.dec"><span class="id" type="axiom">dec</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="lists_decidable.html#DecidableType.X"><span class="id" type="axiom">X</span></a>), <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">y</span><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">+</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">y</span><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">}</span></a>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <a class="idref" href="lists_decidable.html#"><span class="id" type="module">DecidableType</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Module collecting extra lemmata w.r.t. lists on a decidable type 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Module</span> <a name="DecidableIn"><span class="id" type="module">DecidableIn</span></a> (<span class="id" type="keyword">Export</span> <span class="id" type="var">modX</span> : <a class="idref" href="lists_decidable.html#"><span class="id" type="module">DecidableType</span></a>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Being-in-a-list is decidable. 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.dec_in"><span class="id" type="lemma">dec_in</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">l</span><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">+</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Specif.html#:type_scope:'{'_x_'}'_'+'_'{'_x_'}'"><span class="id" type="notation">}</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span> <span class="id" type="keyword">as</span> [| <span class="id" type="var">y</span>]; <span class="id" type="tactic">simpl</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <span class="id" type="var">right</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="tactic">destruct</span> (<a class="idref" href="lists_decidable.html#modX.dec"><span class="id" type="axiom">dec</span></a> <span class="id" type="var">y</span> <span class="id" type="var">x</span>); <span class="id" type="tactic">destruct</span> <span class="id" type="var">IHl</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]; <span class="id" type="tactic">intuition</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.dec_in"><span class="id" type="lemma">dec_in</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Notations and tactics for decidability 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="var">Notation </span><a name="DecidableIn.::x_'=='_x"><span class="id" type="notation">"</span></a>x == y"  := (<a class="idref" href="lists_decidable.html#modX.dec"><span class="id" type="axiom">dec</span></a> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70).<br/>
+&nbsp;&nbsp;<span class="id" type="var">Notation </span><a name="DecidableIn.::x_'<-?'_x"><span class="id" type="notation">"</span></a>x &lt;-? l" := (<a class="idref" href="lists_decidable.html#DecidableIn.dec_in"><span class="id" type="lemma">dec_in</span></a> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Ltac</span> <span class="id" type="var">case_dec</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">let</span> <span class="id" type="var">ldestr</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> := <span class="id" type="tactic">destruct</span> (<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">==</span></a> <span class="id" type="var">y</span>); [<span class="id" type="tactic">try</span> <span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> | <span class="id" type="var">idtac</span>] <span class="id" type="keyword">in</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |- <span class="id" type="var">context</span> [?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">==</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">?</span></a><span class="id" type="var">y</span>]      =&gt; <span class="id" type="var">ldestr</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="var">H</span>: <span class="id" type="var">context</span> [?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">==</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">?</span></a><span class="id" type="var">y</span>] |- <span class="id" type="var">_</span> =&gt; <span class="id" type="var">ldestr</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Ltac</span> <span class="id" type="var">case_in</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |- <span class="id" type="var">context</span> [?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">&lt;-?</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l</span>]       =&gt; <span class="id" type="tactic">destruct</span> (<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">&lt;-?</span></a> <span class="id" type="var">l</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="var">H</span> : <span class="id" type="var">context</span> [?<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">&lt;-?</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l</span>] |- <span class="id" type="var">_</span> =&gt; <span class="id" type="tactic">destruct</span> (<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'<-?'_x"><span class="id" type="notation">&lt;-?</span></a> <span class="id" type="var">l</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Notation for <span class="inlinecode"><span class="id" type="var">remove</span></span> operation 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="var">Notation </span><a name="DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">"</span></a> l \ { x } " := (<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#remove"><span class="id" type="definition">remove</span></a> <a class="idref" href="lists_decidable.html#modX.dec"><span class="id" type="axiom">dec</span></a> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 59).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Properties about <span class="inlinecode"><span class="id" type="var">remove</span></span> 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.in_rm_1"><span class="id" type="lemma">in_rm_1</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">b</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a><a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">l</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">repeat</span> <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.in_rm_2"><span class="id" type="lemma">in_rm_2</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>), <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Lists.List.html#In"><span class="id" type="definition">In</span></a> <span class="id" type="var">a</span> (<span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">b</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">repeat</span> <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>; <span class="id" type="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.in_rm_3"><span class="id" type="lemma">in_rm_3</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">b</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a><a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="tactic">auto</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>; <span class="id" type="tactic">congruence</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.in_rm_1"><span class="id" type="lemma">in_rm_1</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.in_rm_2"><span class="id" type="lemma">in_rm_2</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.in_rm_3"><span class="id" type="lemma">in_rm_3</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.notin_rm_1"><span class="id" type="lemma">notin_rm_1</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">a</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="tactic">try</span> <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.notin_rm_2"><span class="id" type="lemma">notin_rm_2</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),  <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">b</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a><a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">)</span></a> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">firstorder</span> <span class="id" type="keyword">using</span> <span class="id" type="var">notin_rm_1</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.notin_rm_1"><span class="id" type="lemma">notin_rm_1</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.notin_rm_2"><span class="id" type="lemma">notin_rm_2</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.notin_rm_3"><span class="id" type="lemma">notin_rm_3</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">l</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">try</span> <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">H1</span>; <span class="id" type="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.notin_rm_4"><span class="id" type="lemma">notin_rm_4</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>) (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'#'_x"><span class="id" type="notation">#</span></a> <span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">y</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">l</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">try</span> <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">firstorder</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.notin_rm_3"><span class="id" type="lemma">notin_rm_3</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.notin_rm_4"><span class="id" type="lemma">notin_rm_4</span></a> : <span class="id" type="var">datatypes</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.eq_rm_cons"><span class="id" type="lemma">eq_rm_cons</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">l</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="lists_decidable.html#modX.X"><span class="id" type="axiom">X</span></a>),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">a</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">b</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">a</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">)</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">(</span></a><span class="id" type="var">b</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a> <span class="id" type="var">l</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">)</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">a</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span>; <span class="id" type="tactic">simpl</span>; <span class="id" type="tactic">destruct</span> (<a class="idref" href="lists_decidable.html#modX.dec"><span class="id" type="axiom">dec</span></a> <span class="id" type="var">a</span> <span class="id" type="var">b</span>);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ <span class="id" type="tactic">elim</span> <span class="id" type="var">H</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| ];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">auto</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.eq_rm_cons"><span class="id" type="lemma">eq_rm_cons</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="DecidableIn.rm_app"><span class="id" type="lemma">rm_app</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> <span class="id" type="var">m</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">(</span></a><span class="id" type="var">l</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">)</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">l</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <span class="id" type="var">m</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{</span></a><span class="id" type="var">x</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">Admitted</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Hint</span> <span class="id" type="keyword">Resolve</span> <a class="idref" href="lists_decidable.html#DecidableIn.rm_app"><span class="id" type="axiom">rm_app</span></a>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Tactic Notation</span> "rewrite_app" :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| |- <span class="id" type="var">context</span> [ <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">(?</span></a><span class="id" type="var">l1</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">?</span></a><span class="id" type="var">l2</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">)</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">\</span></a> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">{?</span></a><span class="id" type="var">x</span><a class="idref" href="lists_decidable.html#DecidableIn.::x_'\'_'{'_x_'}'"><span class="id" type="notation">}</span></a> ] =&gt; <span class="id" type="tactic">rewrite</span> (<a class="idref" href="lists_decidable.html#DecidableIn.rm_app"><span class="id" type="axiom">rm_app</span></a> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span> <span class="id" type="var">x</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <a class="idref" href="lists_decidable.html#"><span class="id" type="module">DecidableIn</span></a>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

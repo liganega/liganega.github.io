@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>Substitution Revisited, Again</title>
+<META name="description" content="Programming Languages Laboratory">
+<META name="keywords" content="Programming Languages Laboratory">
+<LINK REL="stylesheet" HREF="basic.css" TYPE="text/css">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<p>
+
+<tr>
+<h1>Proof Pearl: Substitution Revisited, Again </h1>
+
+<h3><a name="intro">Introduction</a></h3>
+We revisit Allen Stoughton's 1988 paper "Substitution Revisited" and 
+use it as our test case in exploring a nominal approach to
+variable binding in Coq. In our nominal approach, we use only
+one-sorted variable names as in pen-and-paper work. We show that it
+is not only feasible, but also convenient to work with the nominal
+approach in Coq. Furthermore, we figure out a light
+infrastructure which provides the base in proving a series of
+results about simultaneous substitution and alpha-congruence
+in the untyped lambda calculus.   
+<br>
+<br>
+The three main features of our paper are as follows:
+
+<ol>
+<li>We apply nominal approach with one-sorted variable names to
+variable binding in Coq.</li> 
+
+<li>We use Coq's internal equality instead of any kind of
+set-theoretic equalities or setoid equalities.</li>
+
+<li>We employ only Coq's basic terminology and techniques.</li>
+</ol>
+
+Our primary contribution is to demonstrate that it is
+not only feasible, but also convenient to work with the
+nominal approach in Coq.
+Most of all, our formalization is very compact and close to the
+original reasoning on paper. We even believe that it would
+satisfy the three criteria proposed in POPLmark Challenge, i.e.,
+reasonable overheads, cost of entry, and transparency in
+evaluating mechanization of formal metatheory. However, this goes
+beyond the scope of this paper.
+
+<p></p>
+<p></p>
+<hr WIDTH="100%">
+<h3><a name="papers">Papers</a></h3>
+<ul>
+<li><i>Proof Pearl: Substitution Revisited, Again.</i>
+  <a href="../Publi/Stoughton.pdf" id="link">[Draft]</a>
+  <br>
+<a href="http://www.dbpia.co.kr/Journal/ArticleDetail/3288591"
+   id="link">한글 버전</a>(나현숙과 공동저)은 정보과학회 논문지에 출판되었습니다. 
+
+</li>
+</ul>
+
+<p>
+<p>
+<hr WIDTH="100%">
+<h3><a name="lib">Library codes</a></h3>
+
+<p>
+The proof scripts along with required libraries can be downloaded
+as a gzip'd tarball [<a href="Stoughton.tgz" id="link">Stoughton.tgz</a>].
+
+Extracting the files creates a directory called <tt>Stoughton</tt> 
+which contains six files.
+Among them, <tt>lambda_calculus.v</tt> is the main source code 
+containing the formalization of (Stoughton 1988).
+
+You can compile the codes and generate all the documents by using 
+<tt>make html</tt>.
+The proof scripts can be compiled on Coq8.3.pl4.</p>
+
+<p>
+<table border="1" cellpadding="7">
+<tbody>	
+<tr>
+	<th rowspan="5" width="200">Untyped lambda calculus</th>
+	<td width="110">lambda_calculus</td>
+	<td><a href="Stoughton/lambda_calculus.v">Source</a></td>
+	<td><a href="Stoughton/html/lambda_calculus.html">HTML</a></td>
+</tr>
+<tr>
+	<td>lists_decidable</td>
+	<td><a href="Stoughton/lists_decidable.v">Source</a></td>
+	<td><a href="Stoughton/html/lists_decidable.html">HTML</a></td>
+</tr>
+<tr>
+	<td>fresh_variables</td>
+	<td><a href="Stoughton/fresh_variables.v">Source</a></td>
+	<td><a href="Stoughton/html/fresh_variables.html">HTML</a></td>
+</tr>
+<tr>
+	<td>functions_extra</td>
+	<td><a href="Stoughton/functions_extra.v">Source</a></td>
+	<td><a href="Stoughton/html/functions_extra.html">HTML</a></td>
+</tr>
+<tr>
+	<td>case_tac</td>
+	<td><a href="Stoughton/case_tac.v">Source</a></td>
+	<td><a href="Stoughton/html/case_tac.html">HTML</a></td>
+</tr>
+</tbody>
+</table>
+</p>
+
+<p>
+<p>
+<hr WIDTH="100%">
+<h3><a name="ref">Main References</a></h3>
+
+<ol>
+<li> Allen Stoughton. 
+Substitution Revisited. 
+Theor. Comput. Sci., 59: 317-325, 1988.</li>
+</ol>
+
+<!-- <p>  -->
+<!-- <hr WIDTH="100%"> -->
+<!-- <h3><a name="people">People</a></h3> -->
+<!-- <ul> -->
+<!-- <li> <a href="http://formal.hknu.ac.kr" id="link"> -->
+<!-- Gyesik Lee</a></li> -->
+<!-- </ul> -->
+
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+We investigate the strength of the existence of a non-principal
+ultrafilters over fragments of higher order arithmetic.
+
+Let (U) be the statement that a non-principal ultrafilter on N exists
+and let ACA_0^w be the higher order extension of ACA_0 (arithmetical
+comprehension).
+
+We show that ACA_0^w+(U) is \Pi^1_2-conservative over ACA_0^w and thus
+that ACA_0^w+(U) is conservative over PA.
+
+Moreover, we provide a program extraction method and show that from a
+proof of a strictly Pi^1_2 statement \forall f \exists g A_qf(f,g) in
+ACA_0^w+(U)$ a realizing term in Gödel's system T can be extracted. This
+means that one can extract a term t, such that \forall f A_qf(f,t(f)).

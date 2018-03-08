@@ -1,0 +1,4 @@
+Reverse mathematics is an ongoing research program to classify
+mathematical theorems in the context of 2nd order arithmetic. In this
+talk, we summarize reverse mathematical results on filters and give
+some small new results. 

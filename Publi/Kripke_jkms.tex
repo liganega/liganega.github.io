@@ -1,0 +1,1298 @@
+\documentclass{kms-j}
+
+%%% Start of the area for technical editor.
+\newcommand{\publname}{J.~Korean Math.~Soc.}
+%\newcommand{\doiname}{http://dx.doi.org/10.4134/JKMS}
+\issueinfo{}% volume number
+  {}%        % issue number
+  {}%        % month
+  {}%     % year
+\pagespan{1}{}
+%\received{Received January 5, 2005}
+%\received{Received August 25, 2005;\enspace Revised October 20, 2005}
+\copyrightinfo{}%              % copyright year
+  {Korean Mathematical Society}% copyright holder
+%%% End of the area for technical editor.
+
+% %\input{macros}
+% %\usepackage{pdfsync}
+
+\usepackage{url}
+% %\usepackage{amsmath}[1999/12/15] % or so: Amsmath 2.0 (for tag placement)
+% %\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}              % must be loaded *after* amsmath
+\usepackage{stmaryrd}            % for \llbracket
+%\usepackage{MnSymbol}		% for \dotminus
+%\usepackage{relsize}             % \textsmaller
+\usepackage{proof}
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{yfonts}
+\usepackage{quoting}
+%\usepackage[square, sort, comma, numbers]{natbib}
+\usepackage[square,comma,numbers]{natbib}
+
+
+ \usepackage{textcomp}
+ \usepackage{listings}
+
+\usepackage{graphicx}
+\allowdisplaybreaks
+
+\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+\newtheorem{conjecture}[thm]{Conjecture}
+
+%\theoremstyle{definition}
+%\newtheorem{definition}{Definition}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+
+\theoremstyle{remark}
+%\newtheorem{remark}[thm]{Remark}
+\newtheorem{rem}[thm]{Remark}
+
+\begin{document}
+
+
+\title[Formalizing the meta-theory]
+{Formalizing the meta-theory of first-order predicate logic}
+
+\author[H. Herbelin]{Hugo Herberlin}
+\address{Hugo Herberlin \\ Laboratoire IRIF-PPS\\ INRIA, PPS\\ 75205 Paris Cedex, France}
+\email{Hugo.Herberlin@inria.fr}
+
+\author[S. Kim]{SunYoung Kim}
+\address{SunYoung Kim \\ Department of Mathematics \\ Yonsei
+  University \\ Seoul 03722, Korea}
+\email{sunyoungkim831@gmail.com}
+
+\author[G. Lee]{Gyesik Lee}
+\address{Gyesik Lee \\ Department of Computer Science and Engineering
+  \\ Hankyong National University \\ Anseong 17579, Korea}
+\email{gslee@hknu.ac.kr}
+
+%\thanks{The second author was supported by the National Research Foundation of Korea(NRF) grant funded by the Korea(MSIP) (No. NRF-2013R1A1A2073702, NRF-2017R1C1B1004836), and by the Yonsei University Research Fund(Post Doc. Researcher Supporting Program) of 2016 (project no.: 2016-12-0014). The third author was partially supported by the National Research Foundation of Korea(NRF) grant funded by the Korea government(MOE) (No. NRF-2017R1D1A1B05031658).}
+
+\subjclass{03F03, 03F05, 03F30}
+\keywords{Formal proofs, first-order predicate logic, Kripke semantics, soundness, completeness}
+
+
+%%%%% Macros %%%%%
+
+%%% by Hugo %%%
+
+%\newcommand\seq[2]{\shortstack{$#1$ \\ \mbox{}\\
+%                    \mbox{}\hrulefill\mbox{}\\ \mbox{}\\ $#2$}}
+\newcommand{\seq}[2]{\infer{#2}{#1}}
+%\newcommand \seqr[3]{\shortstack{$#1$ \\ \mbox{}\\
+%                    \mbox{}\hrulefill\mbox{}\\ \mbox{}\\ $#2$}
+%                     \;\; \raisebox{3ex}{$#3$}}
+\newcommand{\seqr}[3]{\rbm{\infer{#2}{#1}}\;\;#3}
+
+\newcommand{\imp}{\rightarrow}
+
+\newcommand{\ddeduce}[2]{\deduce{#1}{\deduce{}{#2}}}
+
+%%% by Gyesik %%%
+
+% alphabets
+
+\newcommand{\cala}{{\cal A}}
+\newcommand{\calb}{{\cal B}}
+\newcommand{\calc}{{\cal C}}
+\newcommand{\cald}{{\mathcal D}}
+\newcommand{\calf}{{\cal F}}
+\newcommand{\calk}{{\mathcal K}}
+\newcommand{\calll}{{\cal L}}
+\newcommand{\calm}{{\cal M}}
+\newcommand{\calo}{{\cal O}}
+\newcommand{\calp}{{\cal P}}
+\newcommand{\cals}{{\cal S}}
+\newcommand{\calt}{{\cal T}}
+\newcommand{\calu}{{\mathcal U}}
+\newcommand{\calw}{{\mathcal W}}
+
+\newcommand{\matha}{{\mathrm A}}
+\newcommand{\mathb}{{\mathrm B}}
+\newcommand{\maths}{{\mathrm S}}
+\newcommand{\matht}{{\mathrm T}}
+
+\newcommand{\frakm}{\mathfrak{M}}
+\newcommand{\frakp}{\mathfrak{P}}
+\newcommand{\fraks}{\mathfrak{S}}
+
+\newcommand{\setb}{\mathbb{B}}
+\newcommand{\setc}{\mathbb{C}}
+\newcommand{\setf}{\mathbb{F}}
+\newcommand{\setl}{\mathbb{L}}
+\newcommand{\setn}{\mathbb{N}}
+\newcommand{\setp}{\mathbb{P}}
+\newcommand{\setr}{\mathbb{R}}
+\newcommand{\sett}{\mathbb{T}}
+\newcommand{\setz}{\mathbb{Z}}
+
+% arrow
+\newcommand{\Imp}{\Rightarrow}
+\newcommand{\To}{\,\,\Rightarrow\,\,}
+
+% brackets
+\newcommand{\coding}[1]{\langle#1 \rangle}
+\newcommand{\eval}[1]{\llbracket#1\rrbracket}
+\newcommand{\eklam}[1]{\mathop{[}#1\mathop{]}}
+\newcommand{\klam}[1]{\mathop{(}#1\mathop{)}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\flrceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\flrfloor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\lrceil}[1]{\mathop{\lceil} #1\mathop{\rceil}}
+\newcommand{\lrfloor}[1]{\mathop{\lfloor} #1\mathop{\rfloor}}
+\newcommand*{\lrklam}[1]{\left (#1\right )}
+
+% Greek
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ep}{\epsilon}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\la}{\lambda}
+\newcommand{\La}{\Lambda}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand*{\si}{\sigma}
+\newcommand*{\Si}{\Sigma}
+\newcommand*{\Th}{\Theta}
+\newcommand*{\vep}{\varepsilon}
+\newcommand{\vth}{\vartheta}
+\newcommand{\vphi}{\varphi}
+
+% proof and forcing
+\newcommand{\vd}{\vdash}
+\newcommand{\Vd}{\Vdash}
+
+% quotation
+\newcommand*{\equ}[1]{\textquotedblleft #1\textquotedblright}
+
+% substitution
+\newcommand{\bs}{\backslash}
+\newcommand{\substa}[3]{[\,#3\, \Uparrow\, #2\,]\, #1}
+% \newcommand{\substa}[3]{#1\,[\,#3\, \Uparrow\, #2\,]}
+% \newcommand{\substa}[3]{#1\,[\,#2 \triangleright #3\,]}
+\newcommand{\subst}[4]{[\, #4\, \Uparrow\,  #3\, \slash\, #2\,]\, #1}
+% \newcommand{\subst}[4]{#1\,[\, #4\, \Uparrow\,  #2\, \backslash\, #3\,]}
+\newcommand{\substs}[3]{[\, #3\, \slash\, #2\,]\, #1}
+% \newcommand{\substs}[3]{#1\,[\, #2\, \backslash\, #3\,]}
+% \newcommand{\subst}[4]{#1\,[\,#2\, \backslash\, #3\,]_{#4}}
+\newcommand{\substr}[2]{#1[.\backslash #2]}
+\newcommand{\substrho}[1]{#1[.\backslash \rho]}
+
+% tabular
+\newcommand{\rbe}[1]{\raisebox{.8ex}[-0.8ex]{#1}}
+\newcommand{\rbf}[1]{\raisebox{.5ex}[-0.5ex]{#1}}
+\newcommand{\rbm}[1]{\raisebox{-1.5ex}[0.5ex]{$#1$}}
+
+% texts in math mode
+\newcommand*{\gdw}{\quad\textit{iff}\quad}
+\newcommand{\pand}{\quad\textit{and}\quad}
+\newcommand{\por}{\quad\textit{or}\quad}
+\newcommand{\falls}{\textit{if }\,}
+\newcommand{\tmin}{\textit{-}}
+\newcommand{\sonst}{\textit{otherwise}}
+
+% abbreviations
+\newcommand{\LL}{\mathrm {\bf\sf L}}
+\newcommand{\PL}{\mathrm {\bf\sf P}\mathrm {\bf\sf L}}
+\newcommand{\cc}{\mathrm {\bf\sf c}\mathrm {\bf\sf c}}
+\newcommand{\kk}{\mathrm {\bf\sf k}}
+\newcommand{\kc}{\mathrm {\bf\sf k}\,}
+
+\newcommand{\et}{\,\, \& \,\,}
+\newcommand{\leer}{\varnothing}
+\newcommand{\menge}[2]{\{ #1 : #2 \}}
+\newcommand{\oder}{\,\, \vee \,\,}
+\newcommand{\Perp}{\bot\!\!\!\! \bot}
+\newcommand{\power}{{\cal P}}
+\newcommand{\sing}[1]{\{ #1 \}}
+\newcommand{\sublist}{\sqsubseteq}
+\newcommand{\tm}{\subseteq}
+\newcommand{\und}{\,\, \wedge \,\,}
+\newcommand{\truth}[1]{|\!| #1 |\!|}
+
+% colors
+\newcommand{\alert}[1]{\textcolor{red}{#1}}
+\newcommand{\structure}[1]{\textcolor{blue}{#1}}
+
+% theories
+\newcommand{\lkmmt}{\textit{LK}_{\mu\tilde\mu}}
+
+% vernacular
+\newcommand{\col}{\mathop{:}}
+\newcommand{\colb}{\,:\!\!|\,}
+\newcommand{\explodes}{\Vdb}
+%\newcommand{\implies}{\,\, \Rightarrow \,\,}
+\newcommand{\scol}{\mathop{;}}
+\newcommand{\shifting}[1]{\uparrow_{#1}\!}
+\newcommand{\stoup}{\mathop{|}}
+\newcommand{\vbar}{\mathop{|}}
+\newcommand{\Vdb}{\Vdash_{\!\!\bot}}
+
+% words in mathrm mode
+\newcommand{\dom}{\mathrm{\textsf{dom}}}
+
+ \newcommand{\Vdashat}[1]{\stackrel{#1}{\Vdash}}
+% \newcommand{\Vdashat}[1]
+%  {\Vdash\!\stackrel{\raisebox{-.7mm}{\scriptsize $#1$}}{-}}
+% \newcommand{\Vdashat}[1]{\Vdash_{#1}}
+% \newcommand{\Vdashat}[1]{\Vdash\!\!\!-_{#1}}
+ \newcommand{\Vdashats}[1]{\stackrel{#1}{\Vdash_{\!\!\!s}}}
+
+% for syntax
+\newcommand{\ttt}[1]{\textup{\tt #1}}
+\newcommand{\tapp}{\textup{\tt app}}
+\newcommand{\tApp}{\textup{\tt App}}
+\newcommand{\tBvar}{\textup{\tt Var}}
+%\newcommand{\tBvar}{\textup{\tt Bvar}}
+\newcommand{\tCst}{\textup{\tt Cst}}
+\newcommand{\tFvar}{\textup{\tt Fvar}}
+\newcommand{\tAtom}{\textup{\tt Atom}}
+\newcommand{\tImply}{\textup{\tt Imply}}
+\newcommand{\tto}{\textup{\tt \,\,->\,\,}}
+\newcommand{\tForall}{\textup{\tt Forall}}
+\newcommand{\tlam}{\textup{\tt lam}}
+
+
+\newcommand{\tnat}{\textup{\tt name}}
+% \newcommand{\tnat}{\textup{\tt nat}}
+\newcommand{\tbvar}{\textup{\tt bvar}}
+\newcommand{\tfunction}{\textup{\tt function}}
+\newcommand{\tpredicate}{\textup{\tt predicate}}
+
+\newcommand{\tpterm}{\textup{\tt term}}
+\newcommand{\tpfml}{\textup{\tt formula}}
+
+\newcommand{\tterm}{\textup{\tt term}}
+\newcommand{\tfml}{\textup{\tt formula}}
+\newcommand{\tcontext}{\textup{\tt context}}
+
+\newcommand{\tFV}{\textup{\tt OP}}
+% \newcommand{\tFV}{\textup{\tt FV}}
+\newcommand{\tOC}{\textup{\tt OC}}
+% \newcommand{\tPH}{\textup{\tt BV}}
+\newcommand{\tPH}{\textup{\tt OV}}
+
+\newcommand{\tdom}{\textup{\tt dom}}
+
+\newcommand{\tdepth}{\textup{\tt depth}}
+\newcommand{\tlist}{\textup{\tt list}}
+\newcommand{\ttlift}{\textup{\tt treloc}}
+\newcommand{\tflift}{\textup{\tt freloc}}
+\newcommand{\tlift}{\textup{\tt reloc}}
+% \newcommand{\ttlift}{\textup{\tt tlift}}
+% \newcommand{\tflift}{\textup{\tt flift}}
+% \newcommand{\tlift}{\textup{\tt lift}}
+
+\newcommand{\tTrue}{\textup{\tt True}}
+\newcommand{\tFalse}{\textup{\tt False}}
+
+\newcommand{\us}{{}_{-}}
+
+\newcommand{\nilterm}{\textup{\tt nil$\us$term}}
+\newcommand{\tfreshout}{\textup{\tt fresh$\us$out}}
+
+\newcommand{\ljt}{\textup{LJT}}
+\newcommand{\ljta}{\textup{LJT}_a}
+\newcommand{\ljto}{\textup{LJT}_o}
+\newcommand{\vda}{\vdash_{\!\!\!a}}
+\newcommand{\vdo}{\vdash_{\!\!\!o}}
+\newcommand{\vdc}{\vdash_{\!\!\!c}}
+
+%%%%% End if Macros %%%%%
+
+
+
+
+
+
+\begin{abstract}
+%
+This paper introduces a representation style of variable binding using dependent types
+when formalizing meta-theoretic properties.
+The style we present is a variation of the Coquand-McKinna-Pollack's locally-named representation.
+The main characteristic is the use of dependent families in defining
+expressions such as terms and formulas.
+In this manner, we can handle many syntactic elements,
+among which well-formedness, provability, soundness, and completeness are critical, in a compact manner.
+Another point of our paper is to investigate the roles of free variables and constants.
+Our idea is that fresh constants can entirely play the role of free variables
+in formalizing meta-theories of first-order predicate logic.
+In order to show the feasibility of our idea, we formalized the
+soundness and completeness of LJT with respect to Kripke semantics
+using the proof assistant Coq, where LJT is the intuitionistic first-order predicate calculus.
+The proof assistant Coq supports all the functionalities we need:
+intentional type theory, dependent types,
+inductive families, and simultaneous substitution.
+\end{abstract}
+
+\maketitle
+
+
+\section{Introduction}
+
+In predicate logic, two sorts of variable binding are involved. The
+binding of bound variables is used for representing universal
+quantification, such as
+\[
+\vdash \forall x\, P(x)\, ,
+\]
+and the binding of free variables is used for representing parametric
+derivations, such as
+\[
+A(a) \vdash B(a)\, .
+\]
+In traditional mathematical usage,
+it is very common to use the same set of variables for both sorts of binding.
+However, this common practice turned out to be not so practical in a mechanical development of
+a formal meta-theory.
+The main issue with this approach is that bound variables sometimes clash with free variables.
+For instance, the standard definition of unrestricted substitution for the Lambda calculus
+by Curry \citep[p.~ 94]{Curry1958} can cause the occurrence of variable capture during
+substitution, and many proofs involving substitution become notoriously tedious because
+one cannot define substitution by a structural induction due to the danger of variable capture.
+A typical way of addressing this issue is to work with $\alpha$-conversion.
+
+However, it turned out that dealing with $\alpha$-conversion in a formal way is not so feasible either,
+because this requires a huge amount of extra work.
+One exceptional example is given by nominal techniques in Isabelle/HOL
+\citep{Urban2008} based on the nominal logic introduced by Pitts et al. in \citep{Gabbay2002,Pitts2003}.
+However, to the best of our knowledge, there exists no user-friendly work dealing with $\alpha$-conversion
+formalized in an intentional proof assistant, such as Coq.
+
+Coquand \citep{Coquand1991} recognized that one can apply the idea of distinguishing between the two sorts of variables in order to avoid to reason about $\alpha$-conversion.
+Following his suggestion, McKinna and Pollack extensively investigated
+the main characteristics involved in employing two sorts of variables in formally proving meta-theories of Lambda calculus
+and Pure Type Systems \citep{McKinna1993,McKinna1999}.
+In particular, they showed that many important
+properties of a typed lambda calculus can be stated and proved without
+referring to $\alpha$-conversion, such as Church-Rosser, standardization, and subject reduction.
+We call the technique developed in \cite{Coquand1991,McKinna1993,McKinna1999}
+\textit{the Coquand-McKinna-Pollack style locally-named representation}.
+
+The first contribution of this paper is to present a variation
+of the Coquand-McKinna-Pollack style locally-named representation.
+The variation makes use of dependent type programming
+in representing the language syntax.
+The core idea is to define expressions like terms and  formulas as dependent families.
+For a list of variables $m$, $\tpterm\,\, m$ (resp. $\tpfml\,\, m$) denotes a family of terms (resp. formulas)
+where variables from $m$ possibly occur unbound.
+That is, the list $m$, which we call a {\em trace},
+collects the bound variables that can possibly occur \textit{unbound} in a term or a formula
+although they are supposed to be bound by a $\forall$-quantifier.\footnote{
+We remark that our idea follows the usage, common in the theory of Lambda calculus,
+to have a notation for the set of terms over some sets of variables.}
+%
+Furthermore, the family $\tpterm\,\, nil$ (resp. $\tpfml\,\, nil$) denotes the set of
+all well-formed terms (resp. formulas). Here, $nil$ denotes the empty list.
+Using this idea, one can for example give a more natural representation of
+the derivability predicate without additional reference to well-formedness.
+This is a major difference from the style of dealing with well-formedness
+in the study of McKinna and Pollack \citep{McKinna1993,McKinna1999}.
+We provide a full explanation of how this idea is applied to the formalization
+of the meta-theory of the intuitionistic first-order predicate logic.
+
+In this paper we also investigate the role of free variables.
+During our formalization work, we found out that free variables essentially play
+no syntactic role,
+except the case where they are replaced by bound variables in stating the generality of judgments.
+This fact can be seen in the following two rules with respect to $\forall$-quantification
+where variable binding occurs:
+\smallskip
+
+\[
+\seqr{\Ga,\, A(t) \vd C}{\Ga,\, \forall x\, A(x) \vd C}{(\forall_L)} \qquad\textrm{and}\qquad
+\seqr{\Gamma \vdash A(a) \qquad \mbox{$a$ fresh in $\Gamma, A$}}
+    {\Gamma \vdash \forall x\, A(x)}{(\forall_R)}\, .
+\]
+%
+These are two rules in Gentzen-style sequent calculi representing
+the left and right introduction rules of $\forall$-quantification, respectively.
+Furthermore, these are the only rules in which instantiation of a bound variable occurs.
+Note that instantiation of the $\forall$-quantifier by an arbitrary term occurs only in $(\forall_L)$
+while in $(\forall_R)$ a bound variable is instantiated by a free variable.
+As we will see in Figure~\ref{ljt} later which illustrates the whole
+presentation of an intuitionistic Gentzen-style sequent calculus,
+called the cut-free LJT, it is not necessary to consider instantiation of free variables in the definition of the deduction system.
+%
+This observation gives rise to the question of whether we need
+free variables at all when we formalize meta-theories of a logical
+system. This drove us to investigate whether we could show the same meta-theoretic results even when
+we do not incorporate free variables into the language.
+We show that one can instead let fresh constants play the role of free variables.
+
+We employ the proof assistant Coq \citep{coq-reference} as the programming tool.
+Coq provides all the functionalities we need to realize our ideas:
+intentional type theory, dependent types,
+inductive families, and simultaneous substitution.\footnote{The Coq scripts are available at \url{https://github.com/liganega/trace}.}
+
+The rest of the paper is organized as follows.
+Section \ref{sec:ljt} describes the syntactic part of an intuitionistic predicate calculus LJT
+and discusses technical details regarding our formalization, such as simultaneous substitution, renaming, and quantification style.
+%
+Section \ref{sec:kripke} introduces a Kripke semantics for LJT and explains
+the role of simultaneous substitution in establishing meta-theoretic results for LJT
+such as soundness, completeness, and cut-admissibility.
+%
+Section \ref{sec:conclusion} concludes with a summary and some remarks.
+
+
+\section{Presentation of the intuitionistic sequent calculus LJT}\label{sec:ljt}
+
+It is well known that nominal representation using one sort of variable is not
+feasible for formal proofs in an intentional theorem prover
+when variable binding is involved.
+There have been some trials that demonstrate the feasibility of the nominal representation style,
+such as Stump's partial contribution to the POPLmark
+Challenge\cite{Stump}.
+However, on a larger and more complicated scale, the notorious problem
+with variable capture has remained unsolved.
+On the other hand, when one works with an intentional proof assistant,
+the locally-named representation \citep{McKinna1993,McKinna1999}
+and the locally nameless representation \citep{Aydemir2008,Chargueraud2012}
+are excellent choices.
+Each style has advantages and disadvantages,
+but our interest lies in the locally-named representation, because of its use of named variables for binding.
+
+Our work began with the observation that both representations are too permissive
+in the definition of terms.
+Some  terms cannot have any meaning, because they contain free occurrences of
+some bound variables that are subject to be bound.
+This gives rise to the necessity of an extra syntax for the so-called \textit{well-formed} terms.
+It is a distinctive feature of McKinna and Pollack's work that
+they introduced a method of avoiding the appeal to such
+well-formedness considerations, except for a very small number of places such as the definition of typing rules.
+
+\begin{rem}
+There are approaches with two sorts of variables that require no extra syntax for well-formedness.
+For example, Sato and Pollack \citep{Sato2010} introduced the so-called \textit{internal syntax}, where all expressions are well-formed although two sorts of named variables are used.
+In fact, no $\alpha$-conversion is necessary, because all expressions are unique themselves,
+as this is the case with the approach based on de Bruijn indices.
+However, we do not consider such approaches, because the mechanism
+they employ is not related to our interest.
+\end{rem}
+
+In order to remove the necessity of employing extra syntax
+for well-formed terms,
+we use \textit{traces} to control information regarding bound variables occurring in the
+construction of terms.
+The idea is as follows.
+The elements of a trace are not relevant, per se, which is reflected by the fact that trace relocation has no impact on substitution and Kripke semantics.
+The only important point is their occurrence in the trace, which is tracked by proofs of the membership.
+This allows names and de Bruijn indices to be superimposed.
+Indeed, their relationship can be observed when we examine the use of de Bruijn indices
+in  McBride and McKinna's typechecker example from \citep[Section 7]{McBride2004}:
+\begin{itemize}
+\item The de Bruijn index $0$ corresponds to a proof that $x \in x :: m$;
+\item The de Bruijn successor $S$ on indices corresponds to a proof that $x \in m$ implies $x \in y :: m$.
+\end{itemize}
+Our idea is also very close to the use of families in Agda, which is indexed by Nat to represent well-scoped terms.
+The origin of the idea appears to go back to \citep{Bird1999,Bird1998,Altenkirch1999}.
+
+\subsection{Predicate language without free variables}
+
+As explained in the introduction, free variables appear to play no essential role
+for the establishment of meta-theories of first-order predicate logic.
+We also wish to verify this, and
+apply our idea to the formalization of LJT, which is a Kripke-based semantical
+cut-elimination of an intuitionistic first-order predicate logic.
+We employ a version of the locally-named representation.
+A main characteristic of the language of LJT is
+that it contains bound variables, but no free variables.
+
+The language of LJT involves two kinds of expressions, namely terms and formulas.
+The definition of formulas involves universal quantification $\forall$, which is a kind of variable binding.
+Therefore, we believe that this provides an appropriate case study for testing and confirming our ideas.
+
+We adopt sequent calculus style derivability to represent proofs.
+The advantage of such an approach is that it involves an easy-to-define notion of the normal form.
+A proof is in normal form when it is merely constructed without using the cut rule.
+
+The language we consider contains $\to$ and $\forall$ as the sole
+connectives.
+As for the non-logical symbols, we assume that the language contains
+unary predicate symbols, binary function symbols, and infinitely many constant symbols.
+Note that this assumption is not a real restriction. First, every language can be conservatively extended to a language with infinitely many constants. Second, functions or predicates of other arities can be represented  by using binary function symbols.
+
+\begin{figure}[t]
+\raggedright
+
+\textbf{Terms:}
+
+\[
+\vcenter{\seq{x \in \tnat & (h: x \in m)}{\tBvar\, x\,\, h \in \tpterm \, m}}
+\qquad
+\vcenter{\seq{c \in \tnat}{\tCst \, c \in \tpterm\, m}}
+\qquad
+\vcenter{\seq{f \in \tfunction & t_1, t_2\in \tpterm\, m}{\tApp\, f\, t_1\, t_2 \in \tpterm\, m}}
+\]
+Here, $(h:x \in m)$ denotes that $h$ is the proof indicating that $x$ occurs in the list $m$.\medskip
+
+\textbf{Formulas:}
+
+ \[
+  \seq{P\in \tpredicate & t \in \tpterm\, m}{\tAtom \, (P, t) \in \tpfml \, m}\qquad
+  \seq{A \in \tpfml\, m & B \in \tpfml \, m}{A\to B \in \tpfml\, m}
+  \]
+  \[
+  \seq{x \in \tnat & A \in \tpfml \, (x :: m)}{\forall x\, A \in \tpfml\, m}
+  \]
+
+%\textbf{Notations:} $P\, t = \tAtom(P, t), \qquad A \to B = \tImply\, A\, B, \qquad \forall x\, A = \tForall\, x\, A$. \medskip
+
+\textbf{Contexts:} $\tcontext = \tlist\,\, \tfml = \tlist\,\, (\tpfml\,\, nil)$\medskip
+
+\textbf{Occurrence of variables:}
+\[
+\begin{array}{rcl}
+%  \tPH(\tFvar\, i) & = & \varnothing\\
+  \tPH(\tBvar\, x\, h) & = & \sing{x}\\[1ex]
+  \tPH(\tCst\, c) & = & \varnothing\\[1ex]
+  \tPH(\tApp\, f\, t_1\, t_2) & = & \tPH(t_1) \cup \tPH(t_2)
+\end{array} \qquad
+\begin{array}{rcl}
+  \tPH(P\, t) & = & \tPH(t)\\[1ex]
+  \tPH(A \to B) & = & \tPH(A) \cup \tPH(B)\\[1ex]
+  \tPH(\forall x\, A) & = & \tPH(A) \bs \sing{x}
+\end{array}
+\]
+
+\textbf{Occurrence of constants:}
+
+\[
+\begin{array}{rcl}
+  \tOC(\tBvar\, x\, h) & = & \varnothing\\[1ex]
+  \tOC(\tCst\, c) & = & \sing{c}\\[1ex]
+  \tOC(\tApp\, f\, t_1\, t_2) & = & \tOC(t_1) \cup \tOC(t_2)
+\end{array} \qquad
+\begin{array}{rcl}
+  \tOC(P\, t) & = & \tOC(t)\\[1ex]
+  \tOC(A \to B) & = & \tOC(A) \cup \tOC(B)\\[1ex]
+  \tOC(\forall x\, A) & = & \tOC(A)
+\end{array}
+\]
+%
+\hrulefill
+\caption{Terms and formulas without free variables}
+  \label{fig:pseudo}
+\end{figure}
+
+We use names to represent both bound variables and constants.
+Letters such as $c, d, c_i, d_i$ vary over constants while letters
+such as $x, y, x_i, y_i$ vary over variables.
+In addition, $f,g, f_i, g_i$ (resp. $P, Q, P_i, Q_i$) denote function (resp. predicate) symbols.
+
+\begin{rem}
+All of the sets mentioned here are assumed to be \textit{decidable}.
+A set $X$ is {\em decidable} if, constructively, $\forall u, v \in X
+\, (u=v \lor u\neq v)$ holds. That is, if there exists a decision procedure to distinguish between $u=v$ and $u \neq v$ for any two elements
+of $X$.
+\end{rem}
+
+For the formalization, we use (finite) lists to denote finite sets of
+constants, variables, or formulas. For instance, the list $x_1 :: \cdots :: x_n :: nil$ of variables denotes
+the set $\sing{x_1, ..., x_n}$, where the order of variable occurrences is important.
+For our purpose, it is sufficient to define a \textit{sublist}
+relation in a set-theoretic manner. A list $\ell$ is a sublist of another list $k$ if $\ell$ is a subset of $k$
+when they are regarded as finite sets.
+We also employ the usual set-theoretic notations such as $\in$,
+$\not\in$, and $\subseteq$.
+
+As mentioned before,
+one of our main ideas is to define  terms and  formulas as dependent families.
+%The type $\tnat$ denotes the set of names.
+Given a list $m$ of variables, %names,
+the type $\tpterm\, m$ (resp. $\tpfml\, m$) denotes the set of  terms (resp.  formulas),
+where bound variables from $m$ can possibly occur unbound.
+%although they are supposed to be bound by a $\forall$-quantifier.
+The basic notions are explained in Figure \ref{fig:pseudo}.
+
+The crucial element in the definition of $\tBvar\, x\, h \in \tpterm\, m$ is the condition $(h : x \in m)$
+which means that $h$ is a witness that $x$ is contained in the trace $m$.
+In this manner, we control the information on variables used in the
+construction of  terms and formulas.
+Indeed, every variable occurring in a term or a formula should be contained in the trace.
+
+\begin{lem}\label{ph-property}
+  Let $e \in \tterm\, m$ or $e \in \tpfml\, m$. Then, $\tPH(e) \tm m$.
+\end{lem}
+%
+Consequently, the set of well-formed terms (resp. formulas) can be syntactically
+represented by $\tpterm\, nil$ (resp. $\tpfml\, nil$).
+%\begin{equation*}
+%  \tterm :=  \tpterm\, nil\quad \textit{and} \quad
+%  \tfml  = \tpfml\, nil
+%\end{equation*}
+
+\subsection{Substitution and trace relocation}
+
+We pay special attention to the definition of the substitution.
+There are two reasons for this.
+First, in order to establish the soundness and completeness of LJT
+with respect to a Kripke semantics in a natural manner,
+it is necessary to work with a simultaneous substitution. % See  Theorems \ref{soundness} and Theorem \ref{universal}.
+
+Second, because of the trace part, it is not clear to which family the result of a substitution
+should belong.
+Suppose $t \in \tpterm\,\, m$ and $s \in \tpterm\,\, m'$.
+Then, there are infinitely many families to which the result of the substitution of $s$ for a
+variable in $t$ could belong.
+Any term family $\tpterm\, \ell$ such that $\tPH(t), \tPH(s) \subseteq \ell$ can be chosen.
+We then define substitution such that it respects the following two points:
+\begin{itemize}
+\item Variables that are supposed to be subsequently bound in a formula should not be considered
+	generally substitutable.
+
+\item Only well-formed terms have a real meaning.
+\end{itemize}
+
+The idea is as follows. First, we declare a trace $\ell$ of variables
+that are prohibited from being substituted,
+and then substitute only well-formed terms.
+The role of $\ell$ is well demonstrated in the abstraction case $(\ref{allBinder})$,
+where the trace is extended by a bound variable $x$ in order to forbid any substitution for $x$.
+
+The point is that we know where
+the resulting term will arrive before the substitution is performed.
+In particular, if $\ell = nil$ then the result of a substitution is a well-formed term
+or a well-formed formula.
+Later, we will see that this forces us to work with more intuitive definitions and proofs,
+such as the inference rules in Figure \ref{ljt}
+and the universal completeness in Theorem \ref{universal}.
+A demonstration of how the substitution works will be given in Example \ref{exp:pa}.
+
+For the definition of simultaneous substitution, we employ {\em
+  associations} which are lists of pairs of variables and well-formed
+terms. Associations will also be used later in the semantic part.
+
+\begin{figure}[t]
+\raggedright
+  Let $\eta = (x_1, u_1), ..., (x_n,u_n)$ be an association, where
+  $u_i \in \tterm \, nil$.
+  Suppose further that $t \in \tpterm \, m$ and $A \in \tpfml \, m$.
+  \medskip
+
+(1) $\substa{t}{\eta}{\ell} \in \tpterm\, \ell$ is recursively defined:
+  \begin{align}
+    \substa{(\tBvar\, y \, h)}{\eta}{\ell} & =
+    \left \{
+    \begin{array}{ll}
+      \tBvar\, y\, h' & \textit{if\,  $y \in \ell$}\\
+      \ttlift\, u_j\, h_j & \textit{if\,  $y \not\in\ell$ and $j = \min \menge{i}{y = x_i}$} \label{eq:reloc}\tag{\dag}\\
+      \tCst \, 0 & \textit{otherwise}
+    \end{array} % \label{bvar-case}
+  \right .\\
+    \substa{(\tCst\, c)}{\eta}{\ell} & =  \tCst\, c \nonumber \\
+    \substa{(\tApp\, f\, t_1\, t_2)}{\eta}{\ell} & =  \tApp\, f\, (\substa{t_1}{\eta}{\ell})\, (\substa{t_2}{\eta}{\ell}) \nonumber
+  \end{align}
+  Here
+  \begin{itemize}
+  \item $h'$ is the proof of $y \in \ell$, % given by the assumption
+  \item $h_j$ is a proof witnessing $\tPH(u_j) = nil \tm \ell$. \smallskip
+  \end{itemize} \medskip
+
+(2) $\substa{A}{\eta}{\ell} \in \tpfml\, \ell$ is recursively defined:
+\begin{align}
+  \substa{(P\, t)}{\eta}{\ell} & = P\, (\substa{t}{\eta}{\ell}) \nonumber\\
+  \substa{(A \to B)}{\eta}{\ell} & = \substa{A}{\eta}{\ell} \to \substa{B}{\eta}{\ell} \nonumber\\
+  \substa{(\forall x\, B)}{\eta}{\ell} & =  \forall x\, (\substa{B}{\eta}{x::\ell})\label{allBinder}\tag{\ddag}
+\end{align}
+
+\hrulefill
+\caption{Simultaneous substitution for terms and formulas}
+  \label{fig:substitution}
+\end{figure}
+
+Suppose that $e$ is an expression.
+Let $\ell$ be a trace and $\eta = (x_1, u_1), ..., (x_n,u_n)$ an association with
+$u_i\in \tterm\, nil$ for all $i$.
+Then,
+\[
+\substa{e}{\eta}{\ell}
+\]
+denotes the result of simultaneously substituting $u_i$ for $x_i$ in $e$.
+The simultaneous substitution is defined by a structural recursion
+as in Figure \ref{fig:substitution}.
+\medskip
+
+\noindent\textit{Notation.}
+We treat the single substitution $\subst{e}{x}{u}{\ell} := \substa{e}{(x,u)}{\ell}$ as a special case.
+Furthermore, we write $\substs{e}{x}{u}$ when $\ell = nil$, for better readability.
+\medskip
+
+Two points should be mentioned regarding the definition.
+First, some variables are ignored by assigning $\tCst\, 0$ as in $(\ref{eq:reloc})$.
+This does not cause any problem because in our work all free occurrences of variables
+should be covered either by the list $\ell$ or by the domain of an association.
+
+\begin{rem}
+In the formal definition of substitution in Coq,
+the ignored case could be handled in a different manner.
+Namely, by including appropriate extra propositional
+arguments denoting the side condition that
+$\tPH(e) \subseteq \dom(\eta)$ or $\tPH(A) \subseteq \dom(\eta)$. This
+would make our work more perfect for application to dependently typed programming.
+However, the definition given above works more smoothly
+from a technical point of view.
+\end{rem}
+
+Second, we have to employ trace relocation in (\ref{eq:reloc}).
+The substituted term $u_{j}$ is of type $\tpterm\, nil$.
+In order for typechecking to work, we need to relocate this to $\tpterm\, \ell$,
+and this is the reason why trace relocation is required.
+
+In the following, we simplify our notation for better readability.
+Given two traces $m$ and $\ell$, the trace relocation operation
+$\ttlift: \tpterm\, m \to \tpterm \, \ell$ is a partial function
+defined only for terms $t$ such that $\tPH(t) \subseteq \ell$:
+\begin{eqnarray}
+%    \ttlift(\tFvar\, i) & = & \tFvar\, i \\
+    \ttlift(\tBvar\, x\,\, h) & = & \tBvar\, x\,\, h' \nonumber\\
+    \ttlift(\tCst\, c) & = & \tCst\, c \nonumber \\
+    \ttlift (\tApp\, f\, t_1\, t_2) & = & \tApp\, f\,(\ttlift (t_1))\, (\ttlift(t_2)) \nonumber
+  \end{eqnarray}
+where  $h'$ is a proof that $x \in \ell$, which can be obtained easily from $\tPH(t) \tm \ell$.
+
+The relocation function is homomorphic in the sense that it does not
+change or disrupt the functionality of any terms,
+either syntactically or semantically.
+Note also that
+the proof element in the definition of a term is inessential
+in the case that the trace contains all necessary variables
+and that $\ttlift(t)$ does not alter anything but proof part elements.
+Indeed, one can show that relocation has no impact on substitution.
+
+\begin{lem}
+  Let $\ell$ be a trace, $t$ a term, and $\eta$ an association.
+  Then we have
+\begin{eqnarray*}
+  \substa{(\ttlift (t))}{\eta}{\ell} & = & \substa{t}{\eta}{\ell}\, .
+\end{eqnarray*}
+\end{lem}
+
+To demonstrate the effectiveness of our definition of substitution we give an example.
+
+\begin{example}\label{exp:pa}
+In the language of Peano arithmetic $(PA)$, consider the following formula
+\begin{equation*}
+A(x, y) \equiv x < y \to \forall z (x + z < y + z)\, .
+\end{equation*}
+Note that the variables $x$ and $y$ are not bound.
+Therefore $A(x, y)$ is not well-formed and belongs to $\tpfml\, \ell$,
+where $\ell = y::x::nil$.
+On the other hand, $\forall x\, y\, A(x,y) \in \tpfml \, nil$, hence a well-formed formula
+which is provable in $PA$.
+From this fact, it follows that the formula $A(1, 2)$ should also be provable in $PA$.
+However, before we talk about its provability, we have to first guarantee its well-formedness.
+In fact, the inference rules in Figure \ref{ljt} involve only well-formed formulas,
+i.e., formulas from the set $\tpfml\, nil$.
+
+Informally, people used to assume the fact that $\tPH(A(1,2)) = \varnothing$.
+However, in our work, this kind of assumption is not necessary at all
+because we have by definition
+\begin{equation*}
+\substa{A(x,y)}{\eta}{nil} \in \tpfml\, nil,\tag{$\ast$}
+\end{equation*}
+where $\eta = (x,1), (y,2)$.
+The well-formedness of $A(1, 2)$ follows directly from $(\ast)$
+because it is just the result of the substitution:
+\begin{align*}
+\substa{A(x,y)}{\eta}{nil} & = \substa{(x < y \to \forall z (x + z < y + z))}{\eta}{nil}\\
+& = \substa{(x < y)}{\eta}{nil} \to \substa{(\forall z (x + z < y + z))}{\eta}{nil}\\
+& = 1 < 2 \to \forall z (\substa{ (x + z < y + z))}{\eta}{z::nil}\\
+& = 1 < 2 \to \forall z (1 + z < 2 + z)\,.
+\end{align*}
+\end{example}
+
+In addition to the example above,
+we also stress that the substitution lemma can be proved relatively easily just by using a structural
+induction. The fact that it is usually not the case is well explained e.g. in \cite{Berghofer2007}.
+
+\begin{lem}[Substitution Lemma]
+  Let $\ell$ be a trace,
+  $e$ an expression, $u \in \tterm \, nil$, and $\eta$ an
+  association. Then,
+  \begin{equation*}
+    \subst{(\substa{e}{\eta}{y::\ell})}{y}{u}{\ell} =
+    \substa{e}{(y,u)::\eta}{\ell}\,.
+  \end{equation*}
+\end{lem}
+
+
+
+\subsection{Cut-free LJT and weakening}
+
+\begin{figure}[t]
+$
+\begin{array}{c@{\qquad}c}
+\seqr{}{\Ga \mid A \vd A}{(Ax)} &
+\seqr{\Ga \mid A \vd C & A \in \Ga}{\Ga \vd C}{(Contr)}\\[7ex]
+
+\seqr{\Ga \vd A & \Ga \mid B \vd C}{\Ga \mid A \to B \vd C}{(\to_L)} &
+\seqr{A :: \Ga \vd B}{\Ga \vd A\to B}{(\to_R)} \\[7ex]
+
+\seqr{\Ga\mid \substs{A}{x}{t} \vd C}{\Ga\mid \forall x\, A \vd C}{(\forall_L)} &
+\seqr{\Ga \vd \substs{A}{x}{c} & \textit{for some } c \notin \tOC(A, \Ga)}{\Ga\vd  \forall x\, A}{(\forall_R)}\\[2ex]
+%\seqr{\Ga \vd \substs{A}{x}{c} & \textit{for some } c \notin \tOC(A, \Ga)}{\Ga\vd  \forall x\, A}{(\textit{Exists-Fresh-}\forall_R)}\\[2ex]
+\end{array}
+$
+
+\hrulefill
+\caption{Cut-free LJT}
+\label{ljt}
+\end{figure}
+
+
+The Gentzen-style sequent calculus LJT presented in Figure \ref{ljt} is obtained from the intuitionistic sequent calculus LJ by restricting the use of the left introduction rules.
+%
+A sequent is either of the form $\Ga\mid A \vd C$ or of the form $\Ga \vd C$,
+where only well-formed formulas are involved.
+The location between the vertical bar ``$\mid$'' and the sign
+``$\vdash$'' is called the {\em stoup}
+and contains the principal formula of the corresponding left introduction rule.
+
+The formal definition in Coq of the inference rules can be represented
+exactly as in Figure \ref{ljt} without including any side condition,
+because a context is of type $\tlist\, (\tpfml\, nil)$
+and a well-formed formula is of type $\tpfml\, nil$.
+
+%We remind that finite sets are represented by finite lists in our work.
+%We emphasize again that it is enough for our work because proofs-as-programs is not our concern.
+%However,
+
+\begin{rem}
+Herbelin \citep{Herbelin94,HerbelinPhD} and Mints \citep{Mints96} showed that
+cut-elimination matches normalization in the $\overline{\lambda}$-calculus,
+which is a variant of $\lambda$-calculus for the sequent calculus structure.
+This implies that LJT effectively supports the proofs-as-programs correspondence.
+\end{rem}
+
+The right quantification rule $(\forall_{R})$ requires some explanation.
+Note first that a fresh constant $c$ is employed in the premise of the rule.
+This relies on the fact that a fresh constant can be used instead of a fresh free variable.
+
+Next, we must explain our choice of quantification style.
+It is sufficient for the premise of $(\forall_R)$ to hold for \textit{one} fresh constant.
+There are some issues regarding this style of quantification, such as the fact that
+it provides too weak an induction principle.
+For example, let us attempt to prove weakening in the following form:
+
+\begin{quotation}
+\noindent Suppose $\Ga \tm \Ga'$ and $\Ga \vd A$. Then  $\Ga' \vd A$.
+\end{quotation}
+
+If one tries to prove this lemma by induction on the given deduction,
+then one soon notices that a renaming lemma of the following form is necessary:
+
+\begin{quotation}
+\noindent If\, $\De \vd \substs{A}{x}{c}$ holds for a fresh constant $c$,
+then $\De \vd \substs{A}{x}{d}$ holds for every fresh constant $d$.
+\end{quotation}
+%
+However, another naive attempt to prove this would lead to weakening,
+ a vicious circle.
+An excellent solution for breaking this circle is provided by Pitts \citep{Pitts2003}.
+He showed that, by employing swapping, one can easily prove renaming
+without appealing to weakening.
+
+Here we explain another option that enables us to prove weakening and renaming simultaneously.
+Proving weakening and renaming simultaneously appears to be a natural
+idea, because they are somehow mutually dependent.
+Our idea is to use simultaneous renaming which is a generalized form of variable swapping.
+Simultaneous renaming is a kind of simultaneous substitution
+where in our case constants are replaced with constants.
+In the following, $\rho = (c_1,d_1),...,(c_n, d_n)$ denotes a simultaneous renaming of constants.
+Given a formula $A \in \tpfml \, m$, the formula $\rho \, A$ is of
+type $\tpfml \, m$, where each constant $c_i$ occurring in $A$ is simultaneously renamed to $d_i$.
+Then $\rho\,\Ga$ is canonically defined for a context $\Ga$.
+Now we can  show the following generalized version of weakening
+which can be proved by using a simple, structural induction.
+Weakening and renaming are special forms of this theorem.
+
+\begin{thm}[Generalized Weakening]\label{gen-weakening}
+    Let $A, C$ be well-formed formulas; $\Ga, \Ga'$ contexts such that
+    $\Ga \tm \Ga'$; and $\rho$ an arbitrary renaming. Then the following hold:
+  \begin{enumerate}
+  \item $\Ga \vd A$ implies $\rho\, \Ga' \vd \rho\, A$.
+  \item $\Ga \mid A \vd C$ implies $\rho\, \Ga' \mid \rho\, A \vd \rho\, C$.
+  \end{enumerate}
+\end{thm}
+
+Note that no side conditions are imposed on the renaming $\rho$.
+Even injectivity is not required.
+We just remark that this is because derivability is predicate and does not belong
+to the part of the domain of the discourse.
+Otherwise, some kind of bijectivity of the renaming will be necessary
+as demonstrated by McKinna and Pollack \citep{McKinna1999}.
+
+\section{Kripke semantics, soundness, completeness, and cut-admissibility}\label{sec:kripke}
+Having seen the basic syntax of LJT, in this section we provide a Kripke semantics for LJT.
+%
+\begin{figure}[t]
+\raggedright
+\textbf{Kripke models:} $\calk = (\calw, \le,\Vd , \cald, V )$, where $(\calw, \le)$ is a partially ordered set; $\cald$ is the domain of $\calk$; $V$ is a function such that
+\begin{enumerate}
+\item $V(c) \in \cald$ for all $c \in \tnat$,
+\item $V(f) : \cald \to \cald \to \cald$ for all $f \in \tfunction$,
+\end{enumerate}
+and $\Vd$ is a relation between $\calw$, $\texttt{predicate}$, and $\cald$
+such that
+\[
+\textit{if}\,\, (w \le w' \textit{ and } w \Vd P\,
+d)\,\,\textit{holds,}
+\,\,\textit{then}\,\, w' \Vd P\,d\,.
+\]
+Here, $w, w' \in \calw$; $P \in \tpredicate$; and $d \in \cald$.\medskip
+
+\textbf{Interpretation of terms:} Let $\eta \in \tlist\, (\tnat \ast \cald)$
+\begin{eqnarray}
+  (\tBvar\, x\, h) [\eta] & = &
+  \left \{
+  \begin{array}{ll}
+    \eta(x) & \textit{if }\, x\in \dom(\eta)\\
+    V(0) & \textit{otherwise}
+  \end{array}
+  \nonumber \right . \\
+  (\tCst\, c) [\eta] & = & V(c) \nonumber\\
+  (f\, t_1\, t_2 ) [\eta] & = & V(f)(t_1 [\eta], t_2 [\eta])\nonumber
+\end{eqnarray}
+Here, $\eta(x) = d$ if $(x,d)$ is the first occurrence from the left  in $\eta$ from left
+of the form $(x, \_)$.\medskip
+
+\textbf{Forcing:} The relation $\Vd$ is inductively extended to the
+following general formulas.
+\begin{eqnarray}
+  w \Vd (P\, t)[\eta] & \textit{iff} & w \Vd P\, (t[\eta]) \nonumber\\
+  w \Vd (A \to B)[\eta] & \textit{iff} & \textit{for all $w' \ge w$, $w' \Vd A [\eta]$ implies $w' \Vd B[\eta]$} \nonumber\\
+  w \Vd (\forall x\,  A)[\eta] & \textit{iff} & \textit{for all $d \in \cald$, $w\Vd A [(x, d) :: \eta]$} \nonumber \\[2ex]
+  w \Vd \Ga & \textit{iff} & \textit{$w \Vd A [nil]$ for all $A \in \Ga$} \nonumber
+\end{eqnarray}
+We sometimes write $\Vd_{\!\calk}$ when necessary.
+
+\hrulefill
+  \caption{Kripke semantics}
+  \label{fig:kripke}
+\end{figure}
+%
+Kripke semantics was created in the late 1950s and early 1960s by Saul
+Kripke in \citep{kripke59,kripke63}. It was first introduced for modal
+logic, and later adapted to intuitionistic logic and other
+non-classical and classical systems in (cf. \citep{TroelstraVanDalen88,danko-gyesik}).
+Here, we employ the conventional Kripke model adopted by Troelstra and van Dalen.
+
+A Kripke model $\calk = (\calw, \le,\Vd , \cald, V )$ is a tuple of a
+partially-ordered set $\calw$ of {\em worlds}; a domain $\cald$;
+interpretations of constant and function symbols into the domain; and a
+relation between worlds, predicates, and domain elements
+(cf. Figure \ref{fig:kripke}).
+The interpretation of terms is based on an association $\eta$
+whose codomain is $\cald$.
+Note that some variables are ignored.
+This is necessary to cope with the definition of simultaneous substitution,
+where some variables are also ignored.
+Furthermore, the proof term for a list membership is simply neglected,
+such that the trace relocation has no impact on the Kripke semantics.
+
+Soundness and completeness can be formalized without any difficulty.
+
+\begin{thm}[Soundness]\label{soundness}
+One can prove the following simultaneously.
+  \begin{enumerate}
+  \item Suppose $\Ga \vd C$ holds. For any Kripke model $\calk =
+    (\calw, \le,\Vd_\calk, \cald, V)$ and any $w \in \calw$, if $w
+    \Vd_{\!\calk} \Ga$ holds, then so does $w \Vd_{\!\calk} C [nil]$.
+  \item Suppose $\Ga \mid A \vd C$ holds. For any Kripke model $\calk
+    = (\calw, \le,\Vd_\calk, \cald, V)$ and any $w \in \calw$, if $w
+    \Vd_{\!\calk} \Ga$ and $w \Vd_{\!\calk} A [nil]$ hold, then so does $w \Vd_{\!\calk} C [nil]$.
+  \end{enumerate}
+\end{thm}
+
+If we had included free variables and let them play their intended role,
+then the soundness proof
+would be very simple to prove, as shown in \citep{wollic09}.
+However, because constants take the role of free variables,
+the ($\forall_R$) rule requires more attention.
+
+Suppose $\Ga\vd  \forall x\, A$ follows from $\Ga \vd \substs{A}{x}{c}$ for a constant $c \notin \tOC(A, \Ga)$ and that $w \Vd \Ga$ holds. Then, given an arbitrary $d \in \cald$, we have to show that
+\begin{equation*}
+%  \label{eq:forall}
+  w \Vd_{\!\calk} A [(x,d)::nil] \tag{$\ast\ast$}
+\end{equation*}
+holds.
+At this point, the premise of ($\forall_R$) appears to provide too weak an induction hypothesis. That is, a constant is associated with a \textit{fixed} value, while the interpretation of the universal quantification involves all possible values from the domain.
+
+A solution lies in the fact that fresh constants are as good as fresh free variables. Syntactically, this fact is represented by the renaming lemma. At the semantic level, this corresponds to creating a new Kripke model from a given one such that the semantics remains nearly identical.
+
+\begin{defi}
+  Given a Kripke model $\calk = (\calw, \le, \Vd, \cald, V)$, a constant $c$, and a value $d \in \cald$, we define a new Kripke model $\calk_{c,d} := (\calw, \le,\Vd, \cald, V_{c,d})$, where
+  \begin{eqnarray*}
+    V_{c,d} (c') :=
+    \left \{
+    \begin{array}{ll}
+      d & \textit{if }\, c' = c, \\
+      V(c') & \textit{otherwise.}
+    \end{array}
+    \right .
+  \end{eqnarray*}
+\end{defi}
+That is, $\calk$ and $\calk_{c,d}$ differ only in the evaluation of the constant $c$. Consequently, we can present the following lemma:
+
+\begin{lem}[Forcing with fresh constants]\label{lem:create-kripke}
+  Given a formula $A$ and a constant $c$, if $c$ does not occur
+  in $A$, then the following holds. For any Kripke model $\calk = (\calw,
+  \le, \Vd, \cald, V)$, any $w \in \calw$, and any $d \in \cald$, we
+  have
+  \begin{eqnarray*}
+    w \Vd_{\!\calk} A [\eta] \iff w \Vd_{\!\calk_{c,d}} A [\eta]
+  \end{eqnarray*}
+under the condition that $\tPH (A) \tm \dom (\eta)$ holds.
+Note that $\tPH (A) \tm \dom (\eta)$ trivially holds when $A$ is well-formed.
+\end{lem}
+
+Now, we employ Lemma \ref{lem:create-kripke} to show that
+$w \Vd_{\!\calk_{c,d}} \Ga$. Consequently,  by the induction hypothesis, we
+also have $w \Vd_{\!\calk_{c,d}} (\substs{A}{x}{c}) [nil]$. Finally, we
+can prove $(\ast\ast)$:
+\begin{eqnarray}
+  w \Vd_{\!\calk_{c,d}} (\substs{A}{x}{c}) [nil] & \iff & w \Vd_{\!\calk_{c,d}} A [(x,d)::nil] \nonumber\\
+  & \iff & w \Vd_{\!\calk} A [(x,d)::nil], \nonumber
+\end{eqnarray}
+where the first equivalence follows from the following lemma.
+
+\begin{lem}
+Let $A$ be a formula, $u$ a well-formed term, and $\ell$ a trace.
+Then, for any Kripke model $\calk = (\calw, \le, \Vd, \cald, V)$, any $w \in \calw$, and
+any association $\eta$, we have
+\[
+w \Vd_{\!\calk} (\substa{A}{(x, u) :: nil }{\ell \setminus \sing{x}}) [\eta]
+\iff w \Vd_{\!\calk} A [(x, u\,[\eta]):: \eta]\, ,
+\]
+where $\ell\setminus\sing{x}$ denotes the trace obtained from $\ell$ by removing $x$.
+\end{lem}
+
+Formalization of completeness is performed in the same manner as in \citep{wollic09}.
+That is, we use the fact that LJT is complete with respect to a universal Kripke model
+$\calu$ defined as follows:
+
+\begin{defi}[Universal Kripke Model]\label{def:universal}
+$\calu = (\tcontext, \subseteq, \Vd_\calu, \tpterm\, nil, V_\calu)$, where
+  \[
+  V_\calu(c) = c \quad\textit{and}\quad V_\calu(f)(t_1, t_2) = f\, t_1\, t_2\, .
+  \]
+Furthermore, $\Ga \Vd_\calu P\, t \textit{ \,iff\, } \Ga \vd P\,t$ holds.
+\end{defi}
+
+Note that in the universal model $\calu$, the interpretation of
+terms corresponds to substitution. That is, given a term $t \in\tpterm
+\, m$ and an association $\eta = (x_1,u_1),...,(x_n, u_n)$, where $u_i
+\in \tterm \,nil$, we have $t[\eta] = \substa{t}{\eta}{nil}$. The universal completeness, as stated
+below, implies that we have a similar correspondence between forcing and deduction.
+
+\begin{thm}[Universal Completeness]\label{universal}
+  Let $A$ be a formula, $\Ga \in \tcontext$, and $\eta$ an
+  association. Then, $\Ga \Vd_{\!\calu} A [\eta]$ implies that $\Ga \vd  \substa{A}{\eta}{nil}$.
+\end{thm}
+
+Note that the formula $A$ used in the universal completeness theorem is an arbitrary raw formula.
+This fact, together with the use of simultaneous substitution, enables us to prove this natural correspondence
+between syntax and semantics by a simple structural induction on $A$.
+
+\begin{thm}[Completeness]\label{completeness}
+  Let $A$ be a closed formula and $\Ga$ a context. If, for any Kripke model
+  $\calk = (\calw, \le, \Vd, \cald, V)$ and any $w \in \calw$, $w \Vd A$
+  follows from $w \Vd \Ga$, then $\Ga \vd A$ holds.
+\end{thm}
+
+
+A combination of completeness and soundness leads to cut-admissibility.
+
+\begin{thm}[Cut-admissibility]
+  Let $A, B$ be formulas and $\Ga$ a context. Then, $(Cut)$ is admissible in $\ljt$:
+  \begin{equation*}
+    \vcenter{\infer[(Cut)]{\Ga \vd B}{\Ga \mid A \vd B & \Ga \vd A}}
+  \end{equation*}
+\end{thm}
+\begin{proof}
+Suppose $\Ga \mid A \vd B$ and $\Ga \vd A$ hold.
+Then, by soundness, so do $\Ga \Vd_\calu A$ and $\Ga \Vd_\calu B$.
+Consequently, $\Ga \vd B$ holds by the universal completeness.
+\end{proof}
+
+\begin{rem}
+Because $(Cut)$ is a semantically sound rule, a composition of (soundness) and (universal completeness) normalizes any proof with $(Cut)$ to a cut-free proof.
+A program extraction (which is available in Coq) from the composition would provide a functional program that produces a cut-free proof from a deduction with $(Cut)$. We believe that the normalization follows the reduction semantic of $\ljt$.
+\end{rem}
+
+\section{Conclusion}\label{sec:conclusion}
+The main idea of this paper is that the Coquand-McKinna-Pollack style locally-named representation
+can be successfully employed in the formalization of a logical meta-theory with variable binding,
+especially when the proofs-as-programs correspondence
+is irrelevant, which is usually the case for logicians and mathematicians.
+
+Moreover, our work uses traces to have control over variables used in terms or formulas.
+With traces one can comfortably work with syntax,
+such as well-formedness and provability.
+The elements of a trace are not relevant, per se, which is reflected by the fact that trace relocation has no impact on substitution and Kripke semantics.
+The only important point is their occurrence in the trace, which is tracked by proofs of list membership.
+This allows names and de Bruijn indices to be superimposed.
+
+However, working with traces requires dependently typed programming.
+In the case of Coq, working with dependent types is sometimes heavy-going.
+This is one reason why simultaneous substitution is defined
+as a kind of partial function.
+We believe that one might have it easier with other tools such as Agda \cite{Norell2009}.
+
+\section*{Acknowledgement}
+The second author was supported by the National Research Foundation of
+Korea(NRF) grant funded by the Korea(MSIP) (No. NRF-2013R1A1A2073702,
+NRF-2017R1C1B1004836), and by the Yonsei University Research Fund(Post
+Doc. Researcher Supporting Program) of 2016 (project no.:
+2016-12-0014). The third author was partially supported by the
+National Research Foundation of Korea(NRF) grant funded by the Korea
+government(MOE) (No. NRF-2017R1D1A1B05031658).
+
+\begin{thebibliography}{10}
+
+\bibitem{Altenkirch1999}
+T.~Altenkirch and B.~Reus, {\it {Monadic presentation of lambda terms
+  using generalized inductive types}}, Lecture Notes in Computer Science,
+  {\bf 1683} (1999), 453--468.
+
+\bibitem{Aydemir2008}
+B.~Aydemir, A.~Chargu{\'{e}}raud, B.~C. Pierce, R.~Pollack, and
+  S.~Weirich, {\it {Engineering formal metatheory}}, ACM SIGPLAN Notices, {\bf
+  43} (2008), no. 1, 3--15.
+
+\bibitem{Berghofer2007}
+S.~Berghofer and C.~Urban, {\it {A Head-to-Head Comparison of de Bruijn Indices and Names}},
+Electronic Notes in Theoretical Computer Science, {\bf 174} (2007), no. 5, 53--67.
+
+\bibitem{Bird1998}
+R.~S.~Bird and L.~Meertens, {\it {Nested datatypes}},
+Lecture Notes in Computer Science, {\bf 1422} (1998), 52--67.
+
+\bibitem{Bird1999}
+R.~S. Bird and R.~Paterson, {\it {De Bruijn notation as a nested
+  datatype}}, Journal of Functional Programming, {\bf 9} (1999), no. 1, 77--91.
+
+\bibitem{Chargueraud2012}
+A.~Chargu{\'{e}}raud, {\it {The locally nameless representation}},
+  Journal of Automated Reasoning, {\bf 49} (2012), no. 3, 363--408.
+
+\bibitem{coq-reference}
+Coq Development Team, {\it {The Coq Proof Assistant Reference Manual}},
+  Available at \url{http://coq.inria.fr}.
+
+\bibitem{Coquand1991}
+T.~Coquand, {\it {An algorithm for testing conversion in Type Theory}},
+  in G.~ Huet and G.~Plotkin, editors,
+  {\it Logical Frameworks},  Cambridge University Press, 1991, 255--279.
+
+\bibitem{Curry1958}
+H.~B. Curry and R.~Feys, {\it {Combinatory Logic. Volume 1}}, North
+  Holland, 1958.
+
+\bibitem{Gabbay2002}
+M.~J. Gabbay and A.~M. Pitts, {\it {A new approach to abstract syntax
+  with variable binding}}, Formal Aspects of Computing, {\bf 13} (2002), no. 3-5,
+  341--363.
+
+\bibitem{Gentzen1934}
+G.~Gentzen, {\it {Untersuchungen {\"{u}}ber das logische Schlie{\ss}en.
+  I}}, Mathematische Zeitschrift, {\bf 39} (1934), no. 2, 176--210.
+
+\bibitem{Herbelin94}
+H.~Herbelin, {\it A $\lambda$-calculus structure isomorphic to
+  gentzen-style sequent calculus structure},
+  Lecture Notes in Computer Science, {\bf 933} (1994), 61--75.
+
+\bibitem{HerbelinPhD}
+H.~Herbelin, {\it S\'equents qu'on calcule: de l'interpr\'etation du
+  calcul des s\'equents comme calcul de $\lambda$-termes et comme calcul de
+  strat\'egies gagnantes}, {Ph.D.} thesis, Universit\'e Paris 7, 1995.
+
+\bibitem{wollic09}
+H.~Herbelin and G.~Lee, {\it Forcing-based cut-elimination for
+  gentzen-style intuitionistic sequent calculus},
+  Lecture Notes in Computer Science, {\bf 5514} (2009), 209--217.
+
+\bibitem{danko-gyesik}
+D.~Ilik, G.~Lee, and H.~Herbelin, {\it Kripke models for classical
+  logic}, Ann. Pure Appl. Logic, {\bf 161} (2010), no. 11, 1367--1378.
+
+\bibitem{kripke59}
+S.~Kripke, {\it {A Completeness Theorem in Modal Logic}},
+Journal of Symbolic Logic, {\bf 24} (1959), no. 1, 1--14.
+
+\bibitem{kripke63}
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\it {Semantical
+  considerations on modal and intuitionistic logic}}, Acta Philosophica Fennica,
+  {\bf 16} (1963), 83--94.
+
+\bibitem{McBride2004}
+C.~McBride and J.~McKinna, {\it {The view from the left}}, Journal of
+  Functional Programming, {\bf 14} (2004), no. 1, 69--111.
+
+\bibitem{McKinna1993}
+J.~McKinna and R.~Pollack, {\it Pure type systems formalized},
+Lecture Notes in Computer Science, {\bf 664} (1993), 289--305.
+
+\bibitem{McKinna1999}
+J.~McKinna and R.~Pollack, {\it Some lambda calculus and type theory
+  formalized}, Journal of Automated Reasoning, {\bf 23} (1999), no. 3-4, 373--409.
+
+\bibitem{Mints96}
+G.~Mints, {\it Normal forms for sequent derivations},
+in P.~Odifreddi, editor, {\it Kreiseliana}, A.~K.~Peters, Wellesley, 1996, 469--492.
+
+\bibitem{Norell2009}
+U.~Norell, {\it Dependently typed programming in Agda},
+in A.~Kennedy and A.~Ahmed, editors,
+{\it Proceeding of TLDI'09}, ACM, 2009, 1--2
+
+\bibitem{Pitts2003}
+A.~M. Pitts, {\it {Nominal logic, a first order theory of names and
+  binding}}, Information and Computation, {\bf 186} (2003), no. 2, 165--193.
+
+\bibitem{Sato2010}
+M.~Sato and R.~Pollack, {\it {External and internal syntax of the
+  lambda-calculus}}, Journal of Symbolic Computation, {\bf 45} (2010), no. 5,
+  598--616.
+
+\bibitem{Stump}
+A.~Stump, {\it Poplmark 1a with named bound variables}.
+Available at \url{https://www.seas.upenn.edu/~plclub/poplmark/stump.html/}.
+
+\bibitem{TroelstraVanDalen88}
+A.~S. Troelstra and D.~van Dalen, {\it {Constructivism in Mathematics: An
+  Introduction I and II}}, vol.~121, 123, North-Holland, 1988.
+
+\bibitem{Urban2008}
+C.~Urban, {\it {Nominal Techniques in Isabelle/HOL}}, Journal of
+  Automated Reasoning, {\bf 40} (2008), no. 4, 327--356.
+
+\end{thebibliography}
+
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>Formalizing Logical Metatheory</title>
+<META name="description" content="Programming Languages Laboratory">
+<META name="keywords" content="Programming Languages Laboratory">
+<LINK REL="stylesheet" HREF="basic.css" TYPE="text/css">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<p>
+
+<tr>
+<h1>Formalizing Logical Metatheory: <br>
+  Semantical Cut-Elimination
+  using Kripke Models for first-order Predicate Logic</h1>
+
+<ul>
+Hugo Herbelin and Gyesik Lee 
+</ul> 
+
+<ul>
+<li> <a href="#intro">Introduction</a> 
+<li> <a href="#papers">Papers</a>
+<li> <a href="#lib">Library codes</a>
+<li> <a href="#ref">References</a>
+<li> <a href="#people">People</a>
+</ul>
+
+<hr WIDTH="100%">
+<h3><a name="intro">Introduction</a></h3>
+We propose a new approach to dealing with binding issues when
+formalizing the metatheory of a logical system with variables such as
+first-order predicate logic. In our approach, the syntax is
+represented with <i>locally traced names</i>.
+The style is similar
+to Pollack-McKinna's locally-named approach, in which two sorts of
+named variables are used. The main difference is that (locally bound)
+variables occurring in an expression are controlled by the type of
+that expression.
+This approach has been adopted to formalize in Coq a
+Kripke-based semantical cut-elimination of intuitionistic first-order
+predicate logic.  
+<br>
+<br>
+The five main features of our paper are as follows:
+
+<ol>
+  <li>First, we show that the roles of constants and free variables
+    can be merged in studying the metatheory of a logical system.</li> 
+
+  <li>Second, there is no need for an extra syntax for well-formed
+    terms and formulae.</li>
+  <li>Third, we emphasize the role of simultaneous substitution and 
+    renaming.</li>
+  <li>Fourth, the so-called Exists-Fresh quantification style, the
+    traditional method used to address the binding problems, is
+    revisited.</li>
+  <li>Fifth, the cut-elimination is based on normalization by
+    evaluation (NBE).</li>
+</ol>
+
+During the formalization work, we attempted to employ common
+statements for logicians, and we have also retained the simplicity of
+the programming part. 
+
+<p></p>
+<p></p>
+<hr WIDTH="100%">
+<h3><a name="papers">Papers</a></h3>
+<ul>
+  <li><i>Formalizing Logical Metatheory: Semantical Cut-Elimination
+      using Kripke Models for first-order Predicate Logic.</i>
+    Hugo Herbelin and Gyesik Lee. Submitted.
+    <a href="../Publi/locally-traced.pdf" id="link">[Draft]</a>
+  </li>
+</ul>
+
+<p>
+<p>
+<hr WIDTH="100%">
+<h3><a name="lib">Library codes</a></h3>
+
+<p>
+  The proof scripts along with required libraries can be downloaded
+  as a gzip'd tarball [<a href="Kripke.tgz" id="link">Kripke.tgz</a>].
+
+  Extracting the files creates a directory called <tt>Kripke</tt> consisting
+  of two subdirectories <tt>with_parameters</tt>
+  and <tt>without_parameters</tt>.
+
+  <ul>
+    <li> The directory <tt>with_parameters</tt>:
+      <ul>
+	<li>It contains formalization in usual style.</li>
+
+	<li>That is, there are two kinds of variable
+	names, (localy bound) variables and parameters.</li>
+      </ul>
+    </li>
+    <p></p>
+
+    <li> The directory <tt>without_parameters</tt>:
+      <ul>
+	<li>It contains formalization
+	  where no parameters (the so-called free variables) are
+	  allowed.</li>
+
+	<li>Parameters are merged with constants.</li>
+
+	<li>That is, Constants play the role of parameters.</li>
+
+	<li><i>The above paper is based on this version.</i></li>
+      </ul>
+  </ul>
+
+Both directories contain a <tt>Makefile</tt> such that you can compile
+and generate all the documents by using <tt>make</tt>.
+The proof scripts can be compiled on Coq8.3.pl3 and Coq8.3.pl4. It
+should also work with Coq8.2pl3.
+
+<p></p>
+<hr WIDTH="100%">
+<h3><a name="ref">Main References</a></h3>
+
+<ol>
+  <li> Catarina Coquand.
+    A formalised proof of the soundness and completeness
+    of a simply typed lambda-calculus with explicit
+    substitutions.
+    Higher-Order and Symbolic Computation 15(1), 57-90, 2002.</li>
+
+  <li> Hugo Herbelin and Gyesik Lee.
+    Forcing-based cut-elimination for Gentzen-style intuitionistic
+    sequent calculus.
+    Logic, Language, Information and Computation, 16th International
+    Workshop, Wollic 2009,
+    LNAI 5514: 209-217. </li>
+
+  <li> James McKinna and Randy Pollack.
+    Some lambda calculus and type theory formalized.
+    Journal of Automated Reasoning 23(3-4), 373-409 (1999)</li>
+</ol>
+
+<p> 
+<hr WIDTH="100%">
+<h3><a name="people">People</a></h3>
+<ul>
+  <li> <a href="http://pauillac.inria.fr/~herbelin/index-eng.html" id="link">
+      Hugo Herbelin</a></li>
+  <li> <a href="http://formal.hknu.ac.kr" id="link">
+      Gyesik Lee</a></li>
+</ul>
+
+</body>
+</html>
+

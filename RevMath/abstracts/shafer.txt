@@ -1,0 +1,13 @@
+A classic result of Jockusch states that, for every k >= 2, every
+DNR(k) function computes a DNR(2) function.  Jockusch's proof can be
+formalized in RCA_0 + ISigma_2, thus the corresponding reverse
+mathematics result is that the principles "exists k DNR(k)" (i.e.,
+there is a k such that for every X there is a function that is DNR(k)
+relative to X) and WKL are equivalent over RCA_0 + ISigma_2.  The
+question then, perhaps first articulated by Simpson, is whether or not
+ISigma_2 is necessary.  In a step toward separating the principles
+"exists k DNR(k)" and WKL over RCA_0, we show that if BSigma_2 holds
+and ISigma_2 fails, then there is a DNR(k) function (for some
+necessarily non-standard k) that computes no DNR(2) function.  This is
+joint work with Francois Dorais (Dartmouth College) and Jeffry Hirst
+(Appalachian State University). 

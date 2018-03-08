@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>When locally-named becomes nominal</title>
+    <style type="text/css">
+      a#link
+      {
+      text-decoration: none;
+      }
+    </style>
+ </head>
+<body style="background-color: white;" link="blue" lang="KO" vlink="blue">
+
+<!-- <body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000"> -->
+<p></p>
+
+<tr>
+<h1>When locally-named becomes nominal</h1>
+
+Gyesik Lee, Hugo Herbelin, and SunYoung Kim
+
+<br>
+<br>
+(Submitted to a special issue of JFP on dependently typed programming)
+
+<ul>
+  <li> <a href="#intro" id="link">Introduction</a> 
+  <li> <a href="#motive" id="link">Motivations</a>
+<!--  <li> <a href="#contrib" id="link">Contributions</a>  -->
+  <li> <a href="#papers" id="link">Papers</a>
+  <li> <a href="#lib" id="link">Library codes</a>
+  <li> <a href="#ref" id="link">References</a>
+  <li> <a href="#people" id="link">People</a>
+</ul>
+
+<hr WIDTH="100%">
+<h3><a name="intro">Introduction</a></h3>
+
+This paper introduces a representation style of variable binding using dependent types. 
+Our representation is a variation of the Coquand-McKinna-Pollack's locally-named representation.
+The main characteristic of our representation is the use of dependent families in defining
+expressions such as terms and formulas. 
+We also showed some hidden utility of simultaneous substitution and simultaneous renaming.
+Consequently, we can deal with definitions and proofs in a more compact way, 
+among which well-formedness, provability, soundness,  and completeness.
+In order to confirm the feasibility of our idea we made several experiments using the 
+proof assistant Coq which supports all the functionalities we need: 
+intentional type theory, dependent types, 
+inductive families, and simultaneous substitution.
+Moreover, we could reveal a new aspect of locally-named representation style that 
+it can be regarded as a nominal approach under the condition that proofs-as-programs is
+not a part of the domain of the discourse.
+<p></p>
+<hr WIDTH="100%">
+
+<h3><a name="motive">Motivations</a></h3>
+This work started with the observation that, in Frege's work
+such as <i>Begriffsschrift</i> and <i>Basic Laws of Arithmetic</i>,
+parameters(also called free variables) play essentially no role. 
+
+And this drove us to check whether we could show
+the same meta-theoretic results even when we do not involve 
+parameters to the language.
+<br>
+
+Another motivation was the observation that locally-named representation
+and locally nameless representation are both too permissive in defining raw terms.
+Some terms could not have meaning because they contain free occurrences
+of some local variables which are subject to be bound.
+It is a distinctive feature of (McKinna & Pollack 1999) 
+that they introduced a way of avoiding appeal to such well-formedness
+considerations except in a very small number of places such as the definition of typing
+rules.
+<br>
+
+In order to remove the necessity of using extra syntax for well-formed terms at all,
+we use <i>traces</i> to control the information of local variables occurring in the construction
+of terms. Our idea is very close to that used in the typechecker example by (McBride &
+McKinna, 2004, Section 7) and the use in Agda of families indexed by Nat to represent
+well-scoped terms.
+<br>
+
+Finally, we were interested in the utility of simultaneous substitution. 
+Although some people have already showed the importance of simultaneous
+substitution in formal reasoning about languages with binding,
+we believed that there were still some hidden properties about it.
+
+For example, there are cases where simultaneous substitution is not a choice, but a
+must. 
+Moreover, simultaneous substitution can be used 
+in saving infrastructure for a formal reasoning.
+<p></p>
+<hr WIDTH="100%">
+
+<!-- <h3><a name="contrib">Contributions</a></h3>  -->
+<!-- To be added. -->
+
+<!-- <p></p> -->
+<!-- <hr WIDTH="100%"> -->
+
+<h3><a name="papers">Papers</a></h3>
+<ol>
+  <li><i><a href="papers/kripke_trace.pdf" id="link">When locally-named becomes nominal</a>. 
+      </i>
+    Gyesik Lee, Hugo Herbelin and SunYoung Kim. 
+	<br>
+	Submitted to JFP special issue on 
+	dependently typed programming.
+   <li><i><a href="papers/technical_report.pdf" id="link">Technical report.</a> 
+      </i>
+    Gyesik Lee, Hugo Herbelin, and SunYoung Kim. 
+	<br>
+	A supplementary report on technical issues.
+  </li>
+  </li>
+</ol>
+
+<p></p>
+<hr WIDTH="100%">
+
+<h3><a name="lib">Library codes</a></h3>
+
+<ol>
+  <li> Trace-Based Locally-Named Representation
+    <ol type="A">
+	<li> LJT and Kripke Semantics Without Parameters:
+	<br>
+	
+  	</li>
+
+	<li> LJT and Kripke Semantics With Parameters:
+	</li>
+    </ol>
+  </li>
+  <p></p>
+
+  <li> Coquand-McKinna-Pollak Style Locally-Named Representation
+    <ol type="A">
+	<li> LJT and Kripke Semantics Without Parameters:
+  	</li>
+
+	<li> LJT and Kripke Semantics With Parameters:
+	</li>
+    </ol>
+  </li>
+  <p></p>
+
+  <li> Locally Nameless Representation
+    <ol type="A">
+	<li> Soundness of Simply-typed Lambda Calculus:
+	</li>
+    </ol>
+  </li>
+  <p></p>
+
+</ol>
+	
+<table border="1">
+  <tr><th rowspan="2">Trace-based <br> Locally-Named Representation</th>
+    <td>LJT and Kripke Semantics Without Parameters</td>
+    <td><a href="sources/trace_LJT_kripke_without_parameters.zip" id="link">Source</a></td>
+<!--    <td><a href="source/html/DGP_Core.html">HTML</a></td>   --> 
+  </tr>  
+    <td>LJT and Kripke Semantics With Parameters</td>
+    <td><a href="sources/trace_LJT_kripke_with_parameters.zip" id="link">Source</a></td>
+<!--    <td><a href="source/html/DGP_Core.html">HTML</a></td>   --> 
+  </tr>
+  <tr><th rowspan="2">Coquand-McKinna-Pollack's <br> Locally-named Representation</th>
+    <td>LJT and Kripke Semantics Without Parameters</td>
+    <td><a href="sources/CMP_LJT_kripke_without_parameters.zip" id="link">Source</a></td>
+<!--    <td><a href="source/html/DGP_Core.html">HTML</a></td>   --> 
+  </tr>
+  <tr>
+    <td>LJT and Kripke Semantics With Parameters</td>
+    <td><a href="sources/CMP_LJT_kripke_with_parameters.zip" id="link">Source</a></td>
+<!--    <td><a href="source/html/DGP_Core.html">HTML</a></td>   --> 
+  </tr>
+  <tr><th rowspan="1">Locally Nameless <br> Representation</th>
+    <td>Soundness of Simply-typed Lambda Calculus</td>
+    <td><a href="sources/stlc.zip" id="link">Source</a></td>
+<!--    <td><a href="source/html/LNameless_Meta.html">HTML</a></td>   -->
+  </tr>
+</table>
+
+<p></p>
+The proof scripts can be compiled on Coq8.4.pl6. 
+It should also work with previous versions such as 8.4 and 8.3.
+
+<p></p>
+<hr WIDTH="100%">
+<h3><a name="ref">Main References</a></h3>
+
+<ol>
+  <li> Coquand, Catarina.
+    A formalised proof of the soundness and completeness
+    of a simply typed lambda-calculus with explicit
+    substitutions.
+    Higher-Order and Symbolic Computation 15(1):57-90, 2002.
+  </li>
+
+  <li> Herbelin, Hugo and Lee, Gyesik.
+    Forcing-based cut-elimination for Gentzen-style intuitionistic
+    sequent calculus.
+    Logic, Language, Information and Computation, 16th International
+    Workshop, Wollic 2009,
+    LNAI 5514:209-217, 2009. 
+  </li>
+
+  <li> Leroy, Xavier.
+    A locally nameless solution to the POPLmark challenge. 
+    Tecnical report, 6908 (INRIA), 2007.
+  </li>
+
+  <li> McBride, Conor and McKinna, James.
+    The view from the left.
+    Journal of functional programming, 14(1):69-111, 2004.
+  </li>
+
+  <li> McKinna, James and Pollack, Randy. 
+    Some lambda calculus and type theory formalized.
+    Journal of Automated Reasoning 23(3-4):373-409, 1999.
+  </li>
+
+  <li>
+    Stoughton, Allen. 
+    Substitution Revisited. Theoretical computer science, 59:317-325, 1988.
+
+</ol>
+
+<p> 
+<hr WIDTH="100%">
+<h3><a name="people">People</a></h3>
+<ul>
+  <li> <a href="http://pauillac.inria.fr/~herbelin/index-eng.html" id="link">
+      Hugo Herbelin</a></li>
+  <li> <a href="http://formal.hknu.ac.kr" id="link">
+      Gyesik Lee</a></li>
+  <li> <a href="mailto:sunyoungkim831@gmail.com" id="link">
+      SunYoung Kim</a></li>
+
+</ul>
+
+</body>
+</html>
+

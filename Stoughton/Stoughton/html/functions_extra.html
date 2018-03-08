@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>functions_extra</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<h1 class="libtitle">Library functions_extra</h1>
+
+<div class="code">
+</div>
+
+<div class="doc">
+<a name="lab2"></a><h1 class="section">About Functions</h1>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Set</span> <span class="id" type="keyword">Implicit</span> <span class="id" type="var">Arguments</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Logic.FunctionalExtensionality.html#"><span class="id" type="library">Coq.Logic.FunctionalExtensionality</span></a>.<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <a class="idref" href="lists_decidable.html#"><span class="id" type="library">lists_decidable</span></a>.<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <a class="idref" href="fresh_variables.html#"><span class="id" type="library">fresh_variables</span></a>.<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <a class="idref" href="case_tac.html#"><span class="id" type="library">case_tac</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following module contains extra definitions and properties
+    about functions 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Module</span> <a name="FunctionExtra"><span class="id" type="module">FunctionExtra</span></a> (<span class="id" type="var">modX</span> : <a class="idref" href="lists_decidable.html#"><span class="id" type="module">DecidableType</span></a>).<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Include</span> <a class="idref" href="lists_decidable.html#"><span class="id" type="module">DecidableIn</span></a> <a class="idref" href="functions_extra.html#"><span class="id" type="module">modX</span></a>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Updating a function by a new value 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Definition</span> <a name="FunctionExtra.up"><span class="id" type="definition">up</span></a> (<span class="id" type="var">E</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">f</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a> -&gt; <span class="id" type="var">E</span>) (<span class="id" type="var">e</span> : <span class="id" type="var">E</span>) (<span class="id" type="var">d</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a>) : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a> -&gt; <span class="id" type="var">E</span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="keyword">if</span> <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#DecidableIn.::x_'=='_x"><span class="id" type="notation">==</span></a> <span class="id" type="var">d</span> <span class="id" type="keyword">then</span> <span class="id" type="var">e</span> <span class="id" type="keyword">else</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="var">Notation </span><a name="FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">"</span></a> f [[ e =&gt; d ]] " := (<a class="idref" href="functions_extra.html#FunctionExtra.up"><span class="id" type="definition">up</span></a> <span class="id" type="var">f</span> <span class="id" type="var">e</span> <span class="id" type="var">d</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Functional extensionality on a finite domain 
+</div>
+<div class="code">
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Definition</span> <a name="FunctionExtra.f_ext"><span class="id" type="definition">f_ext</span></a> (<span class="id" type="var">E</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a> -&gt; <span class="id" type="var">E</span>) (<span class="id" type="var">L</span> : <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a>) :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a>), <span class="id" type="var">x</span> <a class="idref" href="lists_decidable.html#::x_'@'_x"><span class="id" type="notation">@</span></a> <span class="id" type="var">L</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">g</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="FunctionExtra.up_new"><span class="id" type="lemma">up_new</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">E</span> (<span class="id" type="var">f</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a> -&gt; <span class="id" type="var">E</span>) <span class="id" type="var">e</span> <span class="id" type="var">d</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">f</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">e</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> <span class="id" type="var">d</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">e</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">up</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">intuition</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Lemma</span> <a name="FunctionExtra.up_old"><span class="id" type="lemma">up_old</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">E</span> (<span class="id" type="var">f</span> : <a class="idref" href="functions_extra.html#modX.X"><span class="id" type="axiom">X</span></a> -&gt; <span class="id" type="var">E</span>) <span class="id" type="var">e</span> <span class="id" type="var">d</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">x</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'<>'_x"><span class="id" type="notation">&lt;&gt;</span></a> <span class="id" type="var">d</span> -&gt; <span class="id" type="var">f</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">e</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> <span class="id" type="var">x</span> <a class="idref" href="http://coq.inria.fr/distrib/8.3pl4/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <span class="id" type="var">f</span> <span class="id" type="var">x</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">up</span>; <span class="id" type="tactic">intros</span>; <span class="id" type="var">case_dec</span>; <span class="id" type="tactic">intuition</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Tactic Notation</span> "rewrite_up" :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ <span class="id" type="var">H</span> : <span class="id" type="var">context</span> [ <span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">?</span></a><span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> ?<span class="id" type="var">d</span> ] |- <span class="id" type="var">_</span> ]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt; <span class="id" type="tactic">rewrite</span> <a class="idref" href="functions_extra.html#FunctionExtra.up_new"><span class="id" type="lemma">up_new</span></a> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ |- <span class="id" type="var">context</span> [ <span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">?</span></a><span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> ?<span class="id" type="var">d</span> ] ]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt; <span class="id" type="tactic">rewrite</span> <a class="idref" href="functions_extra.html#FunctionExtra.up_new"><span class="id" type="lemma">up_new</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ <span class="id" type="var">H</span> : <span class="id" type="var">context</span> [ <span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">?</span></a><span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> ?<span class="id" type="var">x</span> ] |- <span class="id" type="var">_</span> ]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt; <span class="id" type="tactic">rewrite</span> <a class="idref" href="functions_extra.html#FunctionExtra.up_old"><span class="id" type="lemma">up_old</span></a> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">auto</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| [ |- <span class="id" type="var">context</span> [ <span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">[[</span></a><span class="id" type="var">_</span> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">=&gt;</span></a> <a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">?</span></a><span class="id" type="var">d</span><a class="idref" href="functions_extra.html#FunctionExtra.::x_'[['_x_'=>'_x_']]'"><span class="id" type="notation">]]</span></a> ?<span class="id" type="var">x</span> ] ]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt; <span class="id" type="tactic">rewrite</span> <a class="idref" href="functions_extra.html#FunctionExtra.up_old"><span class="id" type="lemma">up_old</span></a> ; <span class="id" type="tactic">auto</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <a class="idref" href="functions_extra.html#"><span class="id" type="module">FunctionExtra</span></a>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

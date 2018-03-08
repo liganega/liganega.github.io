@@ -1,0 +1,17 @@
+I will look at a notion of finiteness from a viewpoint of constructive
+mathematics. Constructively, there are at least four positive
+definitions for a set of natural numbers being finite: (i) the set is
+given by a list (enumerated sets) (ii) there exists a bound such that
+any list over the set contains duplicates whenever its length exceeds
+the bound (size-bounded sets) (iii) the root of the tree of
+duplicate-free lists over the set is inductively accessible
+(Noetherian sets) (iv) every stream over the set has a duplicate
+(streamless sets). The four variations form a hierarchy of strictly
+decreasing strength constructively, but the hierarchy collapses
+classically. For the first three of them, we can characterize the
+differences in strength in a precise way in terms of a weak instance
+of the Law of Excluded Middle. In the first part of the talk, I will
+review these four alternative definitions of finiteness. In the
+second part, I will present our on-going work, aiming at positively
+answering to our conjecture that it is constructively unprovable that
+a streamless set is Noetherian.

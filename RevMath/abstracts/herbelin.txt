@@ -1,0 +1,4 @@
+We present one of the objectives of the French-Korean project on
+reverse mathematics: how to define subsystems of (second-order)
+arithmetic, starting with PRA, as subsystems of a type theory such as
+the one implemented by Coq. 

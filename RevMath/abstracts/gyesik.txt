@@ -1,0 +1,9 @@
+This talk is an introduction to an ongoing project with Hugo Herbelin
+and Keiko Nakta.
+
+In the first part, we first introduce a way how to characterize the
+big five systems of second-order arithmetic in terms of
+interpolation. 
+
+In the second part, it will be shown that there are various forms of
+RCA_0 which are probably not equivalent in a constructive sense. 

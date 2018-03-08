@@ -1,0 +1,136 @@
+<html>
+<head>
+<title>Reverse Mathematics in Coq</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<META name="description" content="Programming Languages Laboratory">
+<META name="keywords" content="Programming Languages Laboratory">
+<LINK REL="stylesheet" HREF="basic.css" TYPE="text/css">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+<p>
+
+<tr>
+<center>
+<h1>Reverse Mathematics in Coq</h0>
+</center>
+<br>
+
+This is a Korea-France research project on reverse
+mathematics. It is part of the STAR Project sponsored by the National
+Research Foundation on the Korean side and
+Ministry of Foreign and European Affairs on the French side. 
+Besides two leaders of the project, 
+<a href="http://formal.hknu.ac.kr">Gyesik Lee</a>
+on the Korean side and 
+<a href="http://pauillac.inria.fr/~herbelin/index-eng.html">Hugo
+	Herbelin</a>
+       	on the French side, more researchers are
+involved, above all Laurent Bienvenu, Sungwoo Park, Keiko Nakata, and
+some students. 
+The main goal of the research is to develop and implement formal
+systems that support doing &#8220;reverse mathematics&#8221; in the proof
+assistant Coq.  
+<br>
+
+<h2><a name="object"><font color="#0000FF">Objectives</font></a></h2>
+The program called &#8220;reverse mathematics&#8221; is a
+foundation of mathematics that focuses on the analysis of the logical
+force of the most standard mathematical theorems. The logical
+framework in which mathematics is put down is one of the subsystems of
+second-order arithmetic, including the so-called &#8220;big
+five&#8221;: RCA<sub>0</sub>, WKL<sub>0</sub>,
+ACA<sub>0</sub>, ATR<sub>0</sub>,
+&Pi;<sup>1</sup><sub style='position:relative;left:-.5em;'>1</sub>-CA<sub>0</sub>.  
+The best reference is the book by
+Stephen Simpson, 
+<a href="http://www.math.psu.edu/simpson/sosoa/">Subsystems of Second
+Order Arithmetic</a>.
+<br>
+<br>
+On the other hand, the past 40 years have seen the link between logic
+and computing, and more specifically between proofs and programs. The
+link got
+more intimate with the development of type theory by P. Martin-L&ouml;f in the course of
+80 years which is both a logic system and a
+programming language
+ and by the development of linear logic by J.-Y. Girard 
+whose associated concept of
+polarity allows a detailed analysis of computational properties of the
+basic concepts of mathematical logic. 
+<!-- In each of these frameworks, e.g., it
+becomes clear that reasoning by contradiction which is so common
+to the mathematician has a complex computational content 
+(capture of the evaluation context of program execution
+and change of polarity).-->
+<br>
+<br>
+The correspondence between proofs and programs has helped
+to develop the software Coq which is one of the 
+most-used proof assistants in the formalization of mathematics 
+or
+of specification of programming languages. 
+The logic of Coq
+is a type theory called the Calculus of Inductive Constructions (CIC).
+<br>
+<br>
+Since its introduction by H. Friedman in 1975, the research program of
+reverse mathematics has been extremely productive. 
+It has in particular shown that the big five are sufficient
+for the formalization of the majority of standard mathematical theorems.
+However, the
+framework remained that of classical logic. 
+Moreover, reverse mathematics
+has confined itself to the language of arithmetic
+which is not so efficient in practice.
+<br>
+<br>
+One of the goals of our project is
+to reformulate the languages
+of reverse mathematics in a way that the new languages become both finer (thanks to analysis in
+terms of polarization) and more useful in
+practice (thanks to the use of concepts from type theorie such as
+inductive types, dependent products). 
+The success of Coq in the history of the formalization of mathematics shows that the
+goal is very natural. 
+<br>
+<br>
+Another goal is to integrate the new languages into Coq so that 
+it can serve the research on reverse mathematics. 
+We will then be able to provide a concrete framework which 
+any logician or mathematician interested in formalizing the results of
+reverse mathematics can use.
+<br>
+<br>
+
+Some concrete topics are as follows:
+<ul>
+<li>giving a uniform view of the "big five"</li> 
+
+<li>interpreting the "big five" subsystems as subsystems of Coq's
+Calculus of Inductive Constructions</li>
+
+<li>studying the relations between Simpson's subsystem of second-order
+arithmetic and Martin-L&ouml;f's type theory</li>
+
+<li> providing restricted versions of Coq that exactly express the
+strength of the "big five"</li>
+
+<li>formalizing some proofs of Simpson's book in these versions of Coq</li>
+
+<li>understanding how conservation/absoluteness results adapt to proofs
+(i.e. whether the size of proofs is changed)</li>
+</ul>
+
+<h2><a name="object"><font color="#0000FF">Workshop</font></a></h2>
+A <a href="http://formal.hknu.ac.kr/RevMath/workshop.html">
+	workshop on reverse mathematics and Type Theory</a> will be held
+in the period of 25 ~ 29 March, 2013 in Seoul, Korea.
+
+Everyone who is seriously interested in the subject of the workshop 
+is welcome to the meeting. Registration is required although there is no registration fee. 
+If you intend to attend the workshop, please send an email to 
+<a href="mailto:gslee@hknu.ac.kr">the local organizer</a> including
+full name, position, and affiliation. 
+</body>
+</html>
+

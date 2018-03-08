@@ -1,0 +1,1241 @@
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\smartqed  % flush right qed marks, e.g. at end of proof
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=false, %
+}
+
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{proof}
+\usepackage{url}
+
+\usepackage{verbatim}
+%% for verbatim in footnotes %%
+\usepackage{fancyvrb}
+\VerbatimFootnotes
+%% for verbatim in footnotes %%
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+% theorem-like environments
+
+\newtheorem{thm}{Theorem}%[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{bsp}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{defi}[thm]{Definition}
+
+
+%%%%% Macros %%%%%
+
+%%% by Hugo %%%
+
+%\newcommand\seq[2]{\shortstack{$#1$ \\ \mbox{}\\
+%                    \mbox{}\hrulefill\mbox{}\\ \mbox{}\\ $#2$}}
+\newcommand{\seq}[2]{\infer{#2}{#1}}
+
+%\newcommand \seqr[3]{\shortstack{$#1$ \\ \mbox{}\\
+%                    \mbox{}\hrulefill\mbox{}\\ \mbox{}\\ $#2$}
+%                     \;\; \raisebox{3ex}{$#3$}}
+\newcommand{\seqr}[3]{\rbm{\infer{#2}{#1}}\;\;\text{$#3$}}
+
+\newcommand{\imp}{\rightarrow}
+
+\newcommand{\ddeduce}[2]{\deduce{#1}{\deduce{}{#2}}}
+
+%%% by Gyesik %%%
+
+% alphabets
+\newcommand{\cala}{{\cal A}}
+\newcommand{\calb}{{\cal B}}
+\newcommand{\calc}{{\cal C}}
+\newcommand{\cald}{{\cal D}}
+\newcommand{\calf}{{\cal F}}
+\newcommand{\calk}{{\cal K}}
+\newcommand{\calll}{{\cal L}}
+\newcommand{\calm}{{\cal M}}
+\newcommand{\calo}{{\cal O}}
+\newcommand{\calp}{{\cal P}}
+\newcommand{\cals}{{\cal S}}
+\newcommand{\calt}{{\cal T}}
+\newcommand{\calu}{{\cal U}}
+\newcommand{\calw}{{\cal W}}
+
+\newcommand{\matha}{{\mathrm A}}
+\newcommand{\mathb}{{\mathrm B}}
+\newcommand{\maths}{{\mathrm S}}
+\newcommand{\matht}{{\mathrm T}}
+
+\newcommand{\frakm}{\mathfrak{M}}
+\newcommand{\frakp}{\mathfrak{P}}
+\newcommand{\fraks}{\mathfrak{S}}
+
+\newcommand{\setb}{\mathbb{B}}
+\newcommand{\setc}{\mathbb{C}}
+\newcommand{\setf}{\mathbb{F}}
+\newcommand{\setl}{\mathbb{L}}
+\newcommand{\setn}{\mathbb{N}}
+\newcommand{\setp}{\mathbb{P}}
+\newcommand{\setr}{\mathbb{R}}
+\newcommand{\sett}{\mathbb{T}}
+\newcommand{\setz}{\mathbb{Z}}
+        
+% arrow
+\newcommand{\Imp}{\Rightarrow}
+\newcommand{\To}{\,\,\Rightarrow\,\,}
+
+% brackets
+\newcommand{\coding}[1]{\langle#1 \rangle}
+\newcommand{\eval}[1]{\llbracket#1\rrbracket}
+\newcommand{\eklam}[1]{\mathop{[}#1\mathop{]}}
+\newcommand{\klam}[1]{\mathop{(}#1\mathop{)}}  
+\newcommand{\norm}[1]{\|#1\|}                  
+\newcommand{\flrceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\flrfloor}[1]{\left\lfloor #1\right\rfloor}
+\newcommand{\lrceil}[1]{\mathop{\lceil} #1\mathop{\rceil}}
+\newcommand{\lrfloor}[1]{\mathop{\lfloor} #1\mathop{\rfloor}}
+\newcommand*{\lrklam}[1]{\left (#1\right )}
+
+% Greek
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta} 
+\newcommand{\ep}{\epsilon}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\la}{\lambda}
+\newcommand{\La}{\Lambda}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+\newcommand*{\si}{\sigma}
+\newcommand*{\Si}{\Sigma}
+\newcommand*{\Th}{\Theta}
+\newcommand*{\vep}{\varepsilon}
+\newcommand{\vth}{\vartheta}
+\newcommand{\vphi}{\varphi}
+
+% proof and forcing
+\newcommand{\vd}{\vdash}
+\newcommand{\Vd}{\Vdash}
+
+% quotation
+\newcommand*{\equ}[1]{\textquotedblleft #1\textquotedblright}
+
+% substitution
+\newcommand{\bs}{\backslash}
+\newcommand{\substa}[3]{[\,#3\, \Uparrow\, #2\,]\, #1}
+% \newcommand{\substa}[3]{#1\,[\,#3\, \Uparrow\, #2\,]}
+% \newcommand{\substa}[3]{#1\,[\,#2 \triangleright #3\,]}
+\newcommand{\subst}[4]{[\, #4\, \Uparrow\,  #3\, \slash\, #2\,]\, #1}
+% \newcommand{\subst}[4]{#1\,[\, #4\, \Uparrow\,  #2\, \backslash\, #3\,]}
+\newcommand{\substs}[3]{[\, #3\, \slash\, #2\,]\, #1}
+% \newcommand{\substs}[3]{#1\,[\, #2\, \backslash\, #3\,]}
+% \newcommand{\subst}[4]{#1\,[\,#2\, \backslash\, #3\,]_{#4}}
+\newcommand{\substr}[2]{#1[.\backslash #2]}
+\newcommand{\substrho}[1]{#1[.\backslash \rho]}
+
+% tabular
+\newcommand{\rbe}[1]{\raisebox{.8ex}[-0.8ex]{#1}}
+\newcommand{\rbf}[1]{\raisebox{.5ex}[-0.5ex]{#1}}
+\newcommand{\rbm}[1]{\raisebox{-1.5ex}[0.5ex]{$#1$}}
+
+% texts in math mode
+\newcommand*{\gdw}{\quad\text{iff}\quad}
+\newcommand{\pand}{\quad\text{and}\quad}
+\newcommand{\por}{\quad\text{or}\quad}  
+\newcommand{\falls}{\text{if }\,}       
+\newcommand{\tmin}{\text{-}}            
+\newcommand{\sonst}{\text{otherwise}}   
+
+% abbreviations
+\newcommand{\LL}{\mathrm {\bf\sf L}}
+\newcommand{\PL}{\mathrm {\bf\sf P}\mathrm {\bf\sf L}}
+\newcommand{\cc}{\mathrm {\bf\sf c}\mathrm {\bf\sf c}}
+\newcommand{\kk}{\mathrm {\bf\sf k}}
+\newcommand{\kc}{\mathrm {\bf\sf k}\,}
+
+\newcommand{\et}{\,\, \& \,\,}
+\newcommand{\leer}{\varnothing}
+\newcommand{\menge}[2]{\{ #1 : #2 \}}
+\newcommand{\oder}{\,\, \vee \,\,}
+\newcommand{\Perp}{\bot\!\!\!\! \bot}
+\newcommand{\power}{{\cal P}}
+\newcommand{\sing}[1]{\{ #1 \}}
+\newcommand{\sublist}{\sqsubseteq}
+\newcommand{\tm}{\subseteq}
+\newcommand{\und}{\,\, \wedge \,\,}
+\newcommand{\truth}[1]{|\!| #1 |\!|}
+
+% colors
+\newcommand{\alert}[1]{\textcolor{red}{#1}}
+\newcommand{\structure}[1]{\textcolor{blue}{#1}}
+
+% theories
+\newcommand{\lkmmt}{\text{LK}_{\mu\tilde\mu}}
+
+% vernacular
+\newcommand{\col}{\mathop{:}}
+\newcommand{\colb}{\,:\!\!|\,}
+\newcommand{\explodes}{\Vdb}
+%\newcommand{\implies}{\,\, \Rightarrow \,\,}
+\newcommand{\scol}{\mathop{;}}
+\newcommand{\shifting}[1]{\uparrow_{#1}\!}
+\newcommand{\stoup}{\mathop{|}}
+\newcommand{\vbar}{\mathop{|}}
+\newcommand{\Vdb}{\Vdash_{\!\!\bot}}
+
+% words in mathrm mode
+\newcommand{\dom}{\mathrm{\textsf{dom}}}
+
+ \newcommand{\Vdashat}[1]{\stackrel{#1}{\Vdash}}
+% \newcommand{\Vdashat}[1]
+%  {\Vdash\!\stackrel{\raisebox{-.7mm}{\scriptsize $#1$}}{-}}
+% \newcommand{\Vdashat}[1]{\Vdash_{#1}}
+% \newcommand{\Vdashat}[1]{\Vdash\!\!\!-_{#1}}
+ \newcommand{\Vdashats}[1]{\stackrel{#1}{\Vdash_{\!\!\!s}}}
+
+% for syntax
+\newcommand{\tapp}{\textup{\tt app}}
+\newcommand{\tApp}{\textup{\tt App}}
+\newcommand{\tBvar}{\textup{\tt Bvar}}
+\newcommand{\tCst}{\textup{\tt Cst}}
+\newcommand{\tFvar}{\textup{\tt Fvar}}
+\newcommand{\tAtom}{\textup{\tt Atom}}
+\newcommand{\tImply}{\textup{\tt Imply}}
+\newcommand{\tto}{\textup{\tt \,\,->\,\,}}
+\newcommand{\tForall}{\textup{\tt Forall}}
+\newcommand{\tlam}{\textup{\tt lam}}
+
+
+\newcommand{\tnat}{\textup{\tt name}}
+% \newcommand{\tnat}{\textup{\tt nat}}
+\newcommand{\tbvar}{\textup{\tt bvar}}
+\newcommand{\tfunction}{\textup{\tt function}}
+\newcommand{\tpredicate}{\textup{\tt predicate}}
+
+\newcommand{\tpterm}{\textup{\tt pterm}}
+\newcommand{\tpfml}{\textup{\tt pformula}}
+
+\newcommand{\tterm}{\textup{\tt term}}
+\newcommand{\tfml}{\textup{\tt formula}}
+\newcommand{\tcontext}{\textup{\tt context}}
+
+\newcommand{\tFV}{\textup{\tt OP}}
+% \newcommand{\tFV}{\textup{\tt FV}}
+\newcommand{\tOC}{\textup{\tt OC}}
+% \newcommand{\tPH}{\textup{\tt BV}}
+\newcommand{\tPH}{\textup{\tt OV}}
+
+\newcommand{\tdom}{\textup{\tt dom}}
+
+\newcommand{\tdepth}{\textup{\tt depth}}
+\newcommand{\tlist}{\textup{\tt list}}
+\newcommand{\ttlift}{\textup{\tt treloc}}
+\newcommand{\tflift}{\textup{\tt freloc}}
+\newcommand{\tlift}{\textup{\tt reloc}}
+% \newcommand{\ttlift}{\textup{\tt tlift}}
+% \newcommand{\tflift}{\textup{\tt flift}}
+% \newcommand{\tlift}{\textup{\tt lift}}
+
+\newcommand{\tTrue}{\textup{\tt True}}
+\newcommand{\tFalse}{\textup{\tt False}}
+
+\newcommand{\us}{{}_{-}}
+
+\newcommand{\nilterm}{\textup{\tt nil$\us$term}}
+\newcommand{\tfreshout}{\textup{\tt fresh$\us$out}}
+
+\newcommand{\ljt}{\textup{LJT}}
+\newcommand{\ljta}{\textup{LJT}_a}
+\newcommand{\ljto}{\textup{LJT}_o}
+\newcommand{\vda}{\vdash_{\!\!\!a}}
+\newcommand{\vdo}{\vdash_{\!\!\!o}}
+\newcommand{\vdc}{\vdash_{\!\!\!c}}
+
+%%%%% End if Macros %%%%%
+
+\begin{document}
+
+\title{Formalizing Logical Metatheory\thanks{Grants or other notes}
+}
+\subtitle{Semantical Cut-Elimination using Kripke Models for first-order Predicate Logic}
+
+\titlerunning{Formalizing Logical Metatheory}        % if too long for running head
+
+\author{Hugo Herbelin         \and
+  Gyesik Lee
+  %\thanks{For Gyesik Lee, this work was partially supported by the Engineering Research Center of Excellence Program of Korea Ministry of Education, Science and Technology(MEST) / Korea Science and Engineering Foundation(KOSEF), grant number  R11-2008-007-01002-0.} %etc.
+}
+
+%\authorrunning{Short form of author list} % if too long for running head
+
+\institute{
+  Hugo Herbelin \at
+  INRIA \& PPS, Paris Universit{\'e} 7, Paris, France\\
+  % Tel.: +33-1-??\\
+  % Fax: +33-1-44 27 86 54\\
+  \email{Hugo.Herbelin@inria.fr}           %  \\
+  % \emph{Present address:} of F. Author  %  if needed
+  \and
+  Gyesik Lee \at
+  Hankyong National University, Anseong-si, Kyonggi-do, Korea\\
+  % Tel.: +82-2-880 1528\\
+  % Fax: +82-2-882 7234\\
+  \email{gslee@hknu.ac.kr}
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
+\maketitle
+\begin{abstract}
+  We propose a new approach to dealing with binding issues when formalizing the metatheory of a logical system with variables such as first-order predicate logic. In our approach, the syntax is represented with \textit{locally traced names}. The style is similar to Pollack-McKinna's locally-named approach, in which two sorts of named variables are used. The main difference is that (locally bound) variables occurring in an expression are controlled by the type of that expression. This approach has been adopted to formalize in Coq a Kripke-based semantical cut-elimination of intuitionistic first-order predicate logic. 
+
+  The five main features of this paper are as follows.
+  First, we show that the roles of constants and free variables can be merged in studying the metatheory of a logical system.  
+  Second, there is no need for an extra syntax for well-formed terms and formulae.
+  Third, we emphasize the role of simultaneous substitution and renaming.
+  Fourth, the so-called Exists-Fresh quantification style, the traditional method used to address the binding problems, is revisited. 
+  Fifth, the cut-elimination is based on normalization by evaluation (NBE).
+
+  During the formalization work, we attempted to employ common statements for logicians, and we have also retained the simplicity of the programming part.
+
+  \keywords{Formalization with binders \and locally traced names \and normalization by evaluation \and intuitionistic predicate logic \and cut-elimination\and Coq}
+% \PACS{PACS code1 \and PACS code2 \and more}
+% \subclass{03B35 \and 03F05 \and 03F55}
+\end{abstract}
+
+\section{Introduction}
+In formalizing the metatheory of a predicate logic, two sorts of binding are involved: \textit{locally bound} variables are used for representing universal quantification, and {\em globally bound} variables (that are themselves bound in the right introduction rule of the universal quantification) are used for representing parametric derivations.\footnote{One may also wonder whether there is no more hidden use of binders in the definition of the proof system based on the fact that some conditions can be imposed on the right implication rule in proofs-as-programs correspondence with $\lambda$-abstraction. Indeed, Coquand~\cite{cCoquand93} showed that the resulting cut-free proof of a cut-elimination procedure is equivalent to the original proof up to $\beta$-like reduction on the proofs seen as $\lambda$-terms. However, in this paper, where proofs-as-terms correspondence is not in the program, the right introduction rule of implication can hardly be seen as a form of binding}
+In this paper, {\em variables} stand for the (locally bound) variables such as $x$ in $\forall x\, P(x)$, whereas {\em parameters} are (globally bound, i.e., free) variables in parametric derivations such as $x$ in a derivation of the sequent $A(x) \vdash B(x)$.
+
+In traditional (informal) mathematical usage, the same set of variables is used for both  variables and parameters. The main issue in this approach is the possible capture of a parameter by a variable during substitution of a term in an expression. A typical way of addressing this issue is to ensure that all the parameters are always distinct from the variables. The use of $\alpha$-conversion makes this possible.
+
+However, during the mechanical development of a formal metatheory, the representation and manipulation of expressions with variable binding is a tricky issue. The main reason is that $\alpha$-conversion usually gives rise to a large quantity of extra work. This is an obstacle to formal development in general. To the best of our knowledge, there is no user-friendly nominal representation in Coq, which simulates the traditional practice of using a single set of named variables.
+
+In this study, we propose a new first-order approach to the formal
+representation of logical formal systems with variable
+binding. Previously several widely used technical approaches, each with
+many variations, have been investigated extensively. We do not try to
+cover these studies here; we just refer the reader to some papers that  include such discussion (cf. \cite{AmCrMo,engineering,deBruijn,GordonMelham,HarperLicata,mcpol99,nominalT}).
+
+Our approach is similar to McKinna-Pollack's locally-named
+representation \cite{mcpol93,mcpol99}: variables and parameters are
+represented by two sorts of named variables. The syntactic distinction
+makes it possible to essentially work with substitution without being
+concerned with variable capture.
+A main feature of our approach is that the sets of terms and formulae
+depend on a list of variables, called {\em a trace}, that might be used
+during the term or formula construction.\footnote{It is not a
+  new idea to use indexed types to carry around the possible freely occurring
+  names, cf. \cite{BelleHook,AltReus,BrideKinna}. However, our work is a
+specific and practical realization of this idea.} This is the reason why we call our representation style \textit{representation with locally traced names}. An important consequence is that we can talk about \textit{well-formed} terms and formulae without defining an extra syntax. (Well-formed expressions are those with an empty trace.)
+
+We remark that there are approaches with two sorts of variables that require no extra syntax for well-formedness. Sato and Pollack~\cite{sapol}, e.g., introduced the so-called \textit{internal syntax} where all the expressions are well-formed although two sorts of named variables are used. In fact, no $\alpha$-conversion is necessary because all the expressions are unique themselves, as this is the case with the approach based on de Bruijn indices. However, we deliberately renounce to use such approaches because they require special counting mechanisms for deciding binding variables to be used.
+
+To demonstrate the expressiveness and feasibility of our approach, we have formalized in Coq a Kripke-based semantical cut-elimination of intuitionistic first-order predicate logic. 
+The mechanization is carried out in two styles, one with parameters and
+the other without parameters.
+The difference between the two styles will be explained in Section \ref{representation}.
+The structures of both mechanizations are nearly identical. This paper is based on the version without parameters.
+The Coq proof scripts are available
+online.\footnote{Please visit \url{http://formal.hknu.ac.kr/Kripke/}.} 
+
+\paragraph{Outline of the paper}
+The main features of the paper are summarized in Section \ref{features}. In Section \ref{representation}, we explain  parameters and variables in greater detail. In Section \ref{sec:locally}, we formally introduce representation with locally traced names. Intuitionistic sequent calculus $\ljt$, Kripke semantics, soundness and completeness are presented in Section \ref{sec:ljt}. In Section \ref{three}, we discuss certain issues with respect to our choice of Exists-Fresh quantification style. Section \ref{sec:conclusion} concludes the paper.
+
+\section{Main features of the paper}\label{features}
+The five main features of this paper are as follows. 
+First, we address a metatheoretic issue on parameters. We investigate
+the roles of constants and parameters, and we show that a fresh constant
+can play exactly the same role as a fresh parameter. In other words, there is no real difference between parameters and constants.
+The basic idea is as follows: Assume we have a Gentzen-style derivation for $\Ga~\vdash~A$ in which parameters $a_1, ..., a_n$ could possibly occur. Metatheoretically, this means that $\forall a_1\,\cdots\,a_n [\Ga \vdash A]$ holds. That is, the derivation is valid for arbitrary, but {\em fixed} values $a_1, ..., a_n$.
+
+The consequences are manifold: There is no concern regarding variable capture during substitution, substitution is not required for parameters, and a more compact formalization (simpler definitions and shorter proof terms) can be achieved.
+
+Second, even if two sorts of variable names are used, no extra syntax
+for well-formed terms and formulae is necessary. This significantly
+reduces the syntax part during formalization.
+
+Third, the so-called Exists-Fresh quantification style, the traditional method of dealing with the binders, is used in the formalization:
+\[
+\seqr{\Ga \vd \substs{A}{x}{c} & \text{for some }c \notin OC(A, \Ga)}{\Ga \vd \forall x\, A}{(\textit{Exists-Fresh})}
+\]
+Here, $\substs{A}{x}{c}$ denotes the well-formed formula resulting from $A$ by substituting a constant $c$ for $x$, and $OC(\De)$ denotes the set of constants occurring in the context $\De$. (Note that we use fresh constants as fresh parameters.) 
+
+We chose the Exists-Fresh style because it closely resembles the pen-and-paper style. In spite of its unpopularity, we believe that it is the best approach when one wants to follow the usual style of mathematical logic. Here, we show how the difficulties in using the Exists-Fresh style in a formalization work can be addressed.
+
+Fourth, we emphasize the role of simultaneous substitution and renaming.
+Using simultaneous substitution, we can establish the relationship between syntax and semantics in a natural way (cf. Universal Completeness Theorem).
+
+Further, they play an essential role in showing that the Exists-Fresh style is adequate for dealing with quantification.\footnote{See also the discussion in Section 4 of Aydemir et al. \cite{engineering}.} And the equivalence of three well-known quantification styles (Exists-Fresh, Cofinite, and All-Fresh styles) can be easily proved. Although the equivalence is already known, our proof reveals certain new aspects of simultaneous substitution and renaming. In fact, it is not necessary to have any kind of strengthened induction principles such as the well-founded induction on the length of an expression or on the length of a proof. 
+
+Fifth, the cut-elimination is based on normalization by evaluation for intuitionistic first-order predicate logic: A composition of completeness and soundness leads to cut-elimination. Because all the proofs are constructive, our work can be seen as an extension of Coquand's work \cite{cCoquand93,cCoquand02}, where first-order propositional logic is the main object. Refer to Berger et al.~\cite{nbe98} and Berger and Schwichtenberg~\cite{nbe} for more details regarding normalization by evaluation.
+
+
+
+\section{Variables, constants, and $\alpha$-conversion}\label{representation}
+
+\paragraph{Parameters and variables}\label{representation}
+When we look at the following informal right introduction rule of $\forall$-quantification, we can make some observations:
+\[
+\seq{\Gamma \vdash A(y) \qquad \mbox{$y$ fresh in $\Gamma, A$}}
+    {\Gamma \vdash \forall x A(x)}
+\]
+
+First, the $\forall$-quantification is part of the domain of
+discourse because it is generally considered up to $\alpha$-equivalence:
+The actual name of $x$ in $\forall x A(x)$ is irrelevant.
+
+Second, the $\forall$-quantifiers are instantiated by terms that do not
+contain variables. Instantiation of quantifiers by
+terms occurs in the left introduction rule of the 
+$\forall$-quantification and in the definition of the semantics of universally quantified formulae.
+
+Third, there is no need to consider instantiation of parameters in the definition of the deduction system.
+
+Fourth, if derivability is a predicate and not a part of the domain of the discourse, there is no need to consider derivation up to the actual name of the parameters.
+
+However, the need for $\alpha$-conversion over parameters and instantiation of parameters will arise if derivability is lifted as the object of the domain of discourse as in Coquand \cite{cCoquand93,cCoquand02}. She showed that the cut-free derivation obtained by semantic cut-elimination actually implements $\beta$-normalization and $\eta$-expansion over derivations.
+
+\paragraph{Constants as parameters}
+The intended meaning of a derivation in which parameters occur as in $A(x) \vdash B(x)$ is the collection
+of all derivations obtained by instantiating the variables by
+arbitrary, but fixed terms. However, parameters
+are not instantiated by any rule.
+Further, as we will see in Lemma \ref{create-kripke} and Lemma \ref{renaming}, we can replace a fresh constant with arbitrary terms when it does not occur in any assumptions. 
+
+All these facts suggest that parameters can be regarded as constants
+even though this might appear counter-intuitive: A constant is supposed
+to represent a given object, and not a collection. In fact, special
+attention is required in establishing relations between syntax and
+semantics (cf. the soundness proof of Theorem \ref{soundness}). An
+important consequence of considering parameters as constants at the
+syntactic level is that substitution is needed only for variables.  
+
+To do this, the language itself needs to contain infinitely many
+constants. Note that every language can be conservatively extended to a
+language with infinitely many constants. 
+It is also noteworthy that even if we formally introduce parameters, the
+substitution for parameters do not play any role
+(cf. the Coq formalization with parameters).
+
+
+\paragraph{On the purpose of $\alpha$-conversion}
+We remark that terms that differ only by the names of variables are not considered to be equivalent. This may be surprising as it departs from the common usage of reasoning modulo $\alpha$-conversion. For example, in McKinna and Pollack \cite{mcpol93,mcpol99}, where the metatheory of Pure Type systems is formalized, $\alpha$-conversion is necessary in showing the Church-Rosser property. 
+
+In our work, where derivability is a predicate and not a part of the domain of the discourse, it is harmless because for any derivation that would consider some formulae modulo $\alpha$-conversion, there is another one that differs from the original only by the names of variables, and that does not need $\alpha$-conversion.
+
+Let $\vdash$ be a {\em first-order} proof system (such as the one in
+Figure~\ref{ljt}) and $\vdash_{\stackrel{\alpha}{\equiv}}$ its
+extension with the rule
+$$
+\seq{\Gamma \vdash A \quad \Gamma \stackrel{\alpha}{\equiv} \Gamma'\quad
+     A \stackrel{\alpha}{\equiv} A'}
+    {\Gamma' \vdash A'}
+$$ where $A \stackrel{\alpha}{\equiv} A'$ is the $\alpha$-conversion on
+    formulae and $\Gamma \stackrel{\alpha}{\equiv} \Gamma'$ is its
+    canonical extension to contexts. The following postponement result
+    justifies the uselessness of $\alpha$-conversion:
+
+\begin{lem}
+$\Gamma \vdash_{\stackrel{\alpha}{\equiv}} A$ iff there exist
+  $\Gamma' \stackrel{\alpha}{\equiv} \Gamma$ and $A'
+  \stackrel{\alpha}{\equiv} A$ such that $\Gamma' \vdash A'$
+\end{lem}
+
+An informal\footnote{We do not provide any formal work regarding
+  $\al$-conversion.} proof is by induction.  Most of all, we  have to
+ensure that  
+$\alpha$-conversion commutes with every rule of the logic. The rules
+that instantiate a binder require special attention. Let us
+assume that the last rule of the derivation has one of the following forms:
+\[
+\seq{\Gamma \vdash_{\stackrel{\alpha}{\equiv}} A(t)}
+    {\Gamma \vdash_{\stackrel{\alpha}{\equiv}} \forall x\, A(x)}
+\qquad\qquad
+\seq{\Gamma, A(t) \vdash_{\stackrel{\alpha}{\equiv}} B}
+    {\Gamma, \forall x\, A(x) \vdash_{\stackrel{\alpha}{\equiv}} B}
+\]
+By induction there is $A'(t) \stackrel{\alpha}{\equiv} A(t)$,
+$\Gamma' \stackrel{\alpha}{\equiv} \Gamma$, and $B' \stackrel{\alpha}{\equiv} B$
+such that
+$\Gamma' \vdash A'(t)$ or $\Gamma', A'(t) \vdash B'$
+hold.
+Subsequently, we merely have to select a fresh $y$ not used as a binder in $A'$ and build
+$\forall y\, A'(y)$
+which by construction satisfies
+$\forall y\, A'(y) \stackrel{\alpha}{\equiv} \forall x\, A(x)$.\qed
+
+\section{Representation with locally traced names}\label{sec:locally}
+The usage of two sorts of variable names was first implemented by
+McKinna and Pollack~\cite{mcpol93,mcpol99} to formalize the Pure Type
+System (PTS) metatheory, following the suggestion by
+Coquand~\cite{Coquand91}. However, there are certain limitations. For
+example, not
+all syntactic expressions are meaningful because variables could occur
+unbound. This is also the case, even though parameters are replaced by
+constants. Therefore, it is usually required to provide an extra syntax
+for the definition of well-formed expressions.\footnote{In McKinna and
+  Pollack \cite{mcpol93,mcpol99}, well-formed expressions are called
+  \textit{variable-closed} while they are called \textit{locally closed} in Aydemir et al. \cite{engineering}.}
+
+Here, we introduce a new first-order approach, where no extra syntax is
+necessary for well-formed expressions, even though variables and
+parameters are syntactically distinguished. The explanation will be
+provided by demonstrating how to formalize the relationship between
+intuitionistic first-order predicate logic and Kripke semantics.
+
+For the presentation of predicate logic, we adopt sequent calculus to represent proofs. The advantage of such an approach is that it has an easy-to-define notion of the normal form (it is merely the absence of the cut rule). A disadvantage is that it is less \textit{natural} than the so-called natural deduction; however, such a structure has already been used by Coquand~\cite{cCoquand93} and we found it interesting to try an alternative approach.
+
+\begin{figure}[t]
+Let $\tnat := \tt{nat}$ and $m \in \tlist \,\,\tnat$.\medskip
+
+\textbf{Pseudo-terms:} 
+
+\[
+\vcenter{\seq{x \in \tnat & \alert{(h: x \in m)}}{\tBvar\, x\, \alert{h} \in \tpterm \, m}}
+\qquad
+\vcenter{\seq{c \in \tnat}{\tCst \, c \in \tpterm\, m}}
+\qquad
+\vcenter{\seq{f \in \tfunction & t_1, t_2\in \tpterm\, m}{\tApp\, f\, t_1\, t_2 \in \tpterm\, m}}
+\]
+where $(h:x \in m)$ denotes that $h$ is the proof that $x$ occurs in the list $m$.\medskip
+
+\textbf{Pseudo-formulae:}
+
+ \[
+  \seq{P\in \tpredicate & t \in \tpterm\, m}{\tAtom \, (p, t) \in \tpfml \, m}\qquad
+  \seq{A \in \tpfml\, m & B \in \tpfml \, m}{\tImply\, A\, B \in \tpfml\, m}
+  \]
+  \[
+  \seq{x \in \tnat & A \in \tpfml \, (x :: m)}{\tForall\, x\, A \in \tpfml\, m}
+  \]
+
+Notations: $P\, t = \tAtom(P, t), \qquad A \to B = \tImply\, A\, B, \qquad \forall x\, A = \tForall\, x\, A$. \medskip
+
+\textbf{Contexts:} $\tcontext = \tlist\,\, \tfml = \tlist\,\, (\tpfml\,\, nil)$\medskip
+
+\textbf{Occurrence of constants:}
+
+\[
+\begin{array}{rcl}
+  \tOC(\tBvar\, x\, h) & = & \varnothing\\[1ex]
+  \tOC(\tCst\, c) & = & \sing{c}\\[1ex]
+  \tOC(\tApp\, f\, t_1\, t_2) & = & \tOC(t_1) \cup \tOC(t_2)
+\end{array} \qquad
+\begin{array}{rcl}
+  \tOC(P\, t) & = & \tOC(t)\\[1ex]
+  \tOC(A \to B) & = & \tOC(A) \cup \tOC(B)\\[1ex]
+  \tOC(\forall x\, A) & = & \tOC(A)
+\end{array}
+\]
+
+\textbf{Occurrence of variables:}
+\[
+\begin{array}{rcl}
+%  \tPH(\tFvar\, i) & = & \varnothing\\
+  \tPH(\tBvar\, x\, h) & = & \sing{x}\\[1ex]
+  \tPH(\tCst\, c) & = & \varnothing\\[1ex]
+  \tPH(\tApp\, f\, t_1\, t_2) & = & \tPH(t_1) \cup \tPH(t_2)
+\end{array} \qquad
+\begin{array}{rcl}
+  \tPH(P\, t) & = & \tPH(t)\\[1ex]
+  \tPH(A \to B) & = & \tPH(A) \cup \tPH(B)\\[1ex]
+  \tPH(\forall x\, A) & = & \tPH(A) \bs \sing{x}
+\end{array}
+\] 
+\hrulefill
+\caption{Pseudo-terms and -formulae without free variables}
+  \label{fig:pseudo}
+\end{figure}
+
+The language we consider contains $\to$ and $\forall$ as the sole
+connectives as well as countably many constants. We use natural numbers
+to denote both variables and constants.\footnote{In fact, any decidable,
+  denumerably infinite set can be used instead of natural numbers.
+  We use natural
+  numbers for simplicity.} $\tBvar$ stands for the denotation of
+variables while $\tCst$ represents constants. 
+
+We let $c, d, c_i, d_i$ vary over constants while $x, y, x_i, y_i$ vary over variables. For simplicity, we assume two denumerable and decidable sets: $\tpredicate$ of unary predicates and $\tfunction$ of binary functions.\footnote{We remark that our assumption causes any loss of generality because functions or predicates of other arities can be represented by using binary function symbols.} Note that a set $X$ is {\em decidable} if, constructively, $\forall u, v \in X \, (u=v \lor u\neq v)$, otherwise said, if there exists a decision function $f$ from $X \times X$ such that $u=v \leftrightarrow f(u,v)=0$. The symbols $f,g, f_i, g_i$ (resp. $P, Q, P_i, Q_i$) denote function (resp. predicate) symbols.
+
+\begin{rem}
+For the formalization, we use (finite) lists to denote finite sets of
+constants, variables, or formulae. For our purpose, it is sufficient to
+define \textit{sublist} in a set-theoretic manner: A list $\ell$ is a
+sublist of another list $k$ if $\ell$ is a subset of $k$ when regarding them as sets. (The base library for sublist is called \verb|sublist.v|. It contains 1 definition and 16 very simple lemmata.)
+
+However, in this paper, we also use the usual set notations. 
+The notation $\in$ and $\not\in$ are used with respect to the
+{\em being-in-a-list} relation. $nil$ stands for the empty list,
+and $x_1, ..., x_n$ stands for the list $x_1 :: \cdots :: x_n :: nil$.
+\end{rem}
+
+\paragraph{\bf Terms and formulae as inductive families}
+Given a list of names $m \in \tlist\,\, \tnat$, $\tpterm\, m$ and $\tpfml\, m$ denote the set of pseudo-terms and pseudo-formulae, respectively (see Figure \ref{fig:pseudo}). Intuitively, the list $m$, which we call {\em trace}, collects the variables that possibly occur unbound. We use the notation ``\textit{pseudo}-'' because some variables can occur unbound while they are supposed to be bound by a $\forall$-quantifier.
+(Note that our approach follows also the usage, common in the theory of lambda calculus, to have a notation for the set of terms over some set of variables.)
+
+The side condition $(h : x \in m)$ in the definition of $\tBvar\, x\, h
+\in \tpterm\, m$ is a crucial feature of the entire formalization. In
+this manner, we control the information on variables used in the
+construction of pseudo-terms or -formulae:
+
+\begin{lem}\label{ph-property}
+  Let $e \in \tterm\, m$ or $e \in \tpfml\, m$. Then, $\tPH(e) \tm m$. In particular, $\tPH(e)$ is an empty list when $e$ is a well-formed term or a formula.
+\end{lem}
+In particular, this means that the well-formed terms (resp. formulae) are represented by the elements of $\tpterm\, nil$ (resp. $\tpfml\, nil$):
+\begin{equation*}
+  \tterm :=  \tpterm\, nil\quad \text{and} \quad
+  \tfml  = \tpfml\, nil
+\end{equation*}
+
+There are meta-level reasons as to why the compact handling
+of well-formed expressions is important. First, only well-formed terms
+and formulae have a meaning and correspond to ordinary terms and
+formulae in the traditional pen-and-paper style. Another point is that some useful properties hold only for well-formed terms and formulae. For example, deduction rules are intended to be applied only for well-formed formulae (see Figure \ref{ljt}).
+
+
+\paragraph{\bf Syntactic decidability}
+Because we work with sequent calculus, it is necessary to check whether a pseudo-formula occur in a context, which is a list of (well-formed) formulae (see Figure \ref{ljt}). For this, we need to decide the syntactic equality of two expressions.
+
+The syntactic decidability suggests another important point of our approach: $\al$-equivalence of formulae is the equality of the underlying skeleton where names have been dropped while proofs ``$h$'' have been kept.
+In some sense, this is very similar to what happens in the internal representation of Coq terms where names are kept internally for printing purposes while de Bruijn indices are used for reference purposes. With our definition, the important part is the proof ``$h$'', which is a canonical index (some ``$n^{\text{th}}$'' from the list $m$, as explained in Lemma \ref{ph-property}). The names in this case are inessential, with $m$ specifying the order in which the names are numbered. Compared to the standard locally-named representation that has no control of the exposed variables, we superimpose de Bruijn indices and names so that $\al$-equivalence (implicit in Theorem \ref{syn-dec} below) is easily checked.
+
+To decide whether two pseudo-terms are syntactically equal, the being-in-a-list condition should be decidable. Therefore, we use the following definition that is equivalent\footnote{This equivalence enabled us to freely access all the existing standard libraries for lists.} to  the standard one from the Coq library for lists: Given a decidable set $X$ and $m \in \tlist \, X$,
+\begin{eqnarray*}
+x \in y :: m \quad \text{iff}\quad  \text{if $x=y$ then $\tTrue$ else $x \in m$.}
+\end{eqnarray*}
+This definition enables us to have the proof unicity of being-in-a-list relation: Given a trace, the proof part in the definition of a variable is uniquely defined. 
+
+\begin{lem}[Proof unicity of being-in-a-list]\label{proof-uniqueness}
+Let $X$ be a decidable set, $x \in X$, and {\em $m \in  \tlist\, X$}. Then
+\[
+\forall (p, q: x\in m)\, [p = q]\, .
+\]
+\end{lem}
+
+
+\noindent Now, the syntactic decidability follows easily.
+
+\begin{thm}[Syntactic decidability]\label{syn-dec} 
+  Let $m$ be a trace.
+\begin{enumerate}
+\item $\forall (t, s: \tpterm\, m)\, (t=s \,\,\lor\,\, t \neq s)$.
+
+\item $\forall (A, B: \tpfml\, m)\, (A = B \,\,\lor\,\, A \neq B)$.
+\end{enumerate}
+\end{thm}
+
+
+\paragraph{\bf Trace relocation}
+
+\begin{figure}[t]
+  Let $m$ and $\ell$ be traces.
+\begin{enumerate}
+  \item A partial function $\ttlift^{m, \ell} : \tpterm\, m \to \tpterm \, \ell$, defined only for terms $t$ such that $\tPH(t) \subseteq \ell$, is recursively defined: ($\ttlift$ denotes $\ttlift^{m,\ell}$, for simplicity.)
+ \begin{eqnarray}
+%    \ttlift(\tFvar\, i) & = & \tFvar\, i \\
+    \ttlift(\tBvar\, x\, h) & = & \tBvar\, x\, h' \label{lift-side}\\
+    \ttlift(\tCst\, c) & = & \tCst\, c \nonumber \\
+    \ttlift (\tApp\, f\, t_1\, t_2) & = & \tApp\, (\ttlift (t_1))\, (\ttlift(t_2)) \nonumber
+  \end{eqnarray}
+where  $h'$ is a proof of $x \in \ell$, which can be obtained from the assumption $\tPH(t) \tm \ell$.\medskip
+
+\item A partial function $\tflift^{m, \ell} : \tpfml\, m \to \tpfml \, \ell$, defined only for formulae $A$ such that $\tPH(A) \subseteq \ell$, is recursively defined: ($\tflift$ denotes $\tflift^{m,\ell}$, for simplicity.)
+\begin{eqnarray*}
+  \tflift(P\, t) & = &  P\, (\ttlift(t)) \\
+  \tflift( A \to B) & = & \tflift(A) \to \tflift(B)\\
+  \tflift(\forall x\, C) & = & \forall x\, (\tflift(C))
+\end{eqnarray*}
+where $\tflift(C) = \tflift^{x::m, x::\ell} (C)$ depends on the fact that $\tPH(C) \subseteq x:: \ell$ which trivially follows from $\tPH(\forall x\, C) \tm \ell$.
+\end{enumerate}
+
+\hrulefill
+  \caption{Trace relocation}
+  \label{fig:relocation}
+\end{figure}
+
+Even if we have the proof unicity of being-in-a-list, a pseudo-term or a -formula syntactically belongs to infinitely many classes: a term $t$ from $\tpterm \, m$ belongs also to $\tpterm\, k$ for all traces $k$ including $m$ as a sublist. 
+
+For any pseudo-term $t \in \tpterm \, m$, the set $k = \tPH(t) \tm m$ is the canonical and smallest trace such that $t\in \tpterm\, k$. 
+We use this property to relocate the type of $t$ using a {\em homomorphic} function from $\tpterm\, m$ to $\tpterm\, \ell$ when $\tPH(t) \tm \ell$.
+The relocation function is homomorphic in the sense that it preserves syntactic and semantic properties such as syntactic decidability, substitution, and validity in a Kripke model. (See Lemma \ref{eq-preservation}, Lemma \ref{lem:relocation}, and Theorem \ref{thm:relocation}.)
+We emphasize that trace relocation is necessary to deal with
+substitution (cf. Figure \ref{fig:substitution}).
+
+The relocation function presented in Figure \ref{fig:relocation} is based on the fact that the being-in-a-list part is inessential so long as the trace contains all the variables needed for the construction of an expression $e$, i.e., $\tPH(e)$.
+% Note that $\ttlift^{m,\ell}$ and $\tflift^{m,\ell}$ are partial functions.
+Note also that $\ttlift^{m,\ell}(t)$ does not change anything in $t$,
+but in the being-in-a-list part, and that the choice of $h'$ in
+$(\ref{lift-side})$ is not important because of the proof unicity. This
+indicates that repeated application of relocation is equivalent to a
+single application and that the syntactic equality between two
+expressions is preserved during trace relocation. 
+
+In the following lemmata, we omit necessary variable conditions for a
+simple presentation. 
+
+\begin{lem}[Idempotence]
+  Assume $e\in \tpterm \, m$ or $e \in \tpfml \, m$.
+  % and $m\subseteq \ell\subseteq k$.
+  Then,
+\[
+\tlift^{\ell,k}(\tlift^{m,\ell}(e))  =  \tlift^{m, k}(e)
+\]
+where $\tlift$ denotes $\ttlift$ or $\tflift$ depending on $e$.
+\end{lem}
+
+\noindent The following lemma says that relocation functions preserve equality.
+
+\begin{lem}[Equality preservation]\label{eq-preservation}
+  Assume $e, e' \in \tpterm\, m$ $($or $e, e' \in \tpfml\, m)$.
+  % and $\tPH(e), \tPH(e') \tm \ell$.
+  Then, $\tlift^{m, \ell} (e) = \tlift^{m, \ell} (e')$ as soon as $e =e'$. Here, $\tlift$ denotes $\ttlift$ or $\tflift$ depending on $e, e'$.
+\end{lem}
+
+The overhead for dealing with relocation is very small. In addition to the two definitions for $\ttlift$ and $\tflift$, we needed only 14 lemmata, which are all proved in several lines.
+% (The base library for relocation is called \verb|without_FreeVar_relocation.v| in our library.)
+
+\paragraph{\bf Substitution with destination}
+\begin{figure}[t]
+  Let $m, \ell$ be traces and $\eta = (x_1, u_1), ..., (x_n,u_n)$ be an association, where $u_i \in \tterm$. Further, $t \in \tpterm \, m$ and $A \in \tpfml \, m$.
+  \begin{enumerate}
+  \item $\substa{t}{\eta}{\ell} \in \tpterm\, \ell$ is recursively defined by:
+  \begin{eqnarray}
+    \substa{(\tBvar\, y \, h)}{\eta}{\ell} & = &
+    \begin{cases}
+      \tBvar\, y\, h' & \text{if $y \in \ell$}\\
+      \ttlift\, u_j\, h_j & \text{if $y \not\in\ell$ and $j = \min \menge{i}{y = x_i}$} \\
+      \tCst \, 0 & \text{otherwise}
+    \end{cases} \label{bvar-case} \\
+    \substa{(\tCst\, c)}{\eta}{\ell} & = & \tCst\, c \nonumber \\
+    \substa{(\tApp\, f\, t_1\, t_2)}{\eta}{\ell} & = & \tApp\, f\, (\substa{t_1}{\eta}{\ell})\, (\substa{t_2}{\eta}{\ell}) \nonumber
+  \end{eqnarray}
+  where
+  \begin{itemize}
+  \item $h'$ is the proof of $y \in \ell$ given by the assumption,
+  \item $h_j$ is a proof-term witnessing $\tPH(u_j) = nil \tm \ell$. \smallskip
+  \end{itemize} \medskip
+
+\item $\substa{A}{\eta}{\ell} \in \tpfml\, \ell$ is recursively defined by:
+\begin{eqnarray}
+  \substa{(P\, t)}{\eta}{\ell} & = & P\, (\substa{t}{\eta}{\ell}) \nonumber\\
+  \substa{(A \to B)}{\eta}{\ell} & = & \substa{A}{\eta}{\ell} \to \substa{B}{\eta}{\ell} \nonumber\\
+  \substa{(\forall x\, B)}{\eta}{\ell} & = & \forall x\, (\substa{B}{\eta}{x::\ell})\label{allBinder}
+\end{eqnarray}
+\end{enumerate}
+
+\hrulefill
+\caption{Simultaneous substitution with destination}
+  \label{fig:substitution}
+\end{figure}
+
+The definition of a substitution requires special consideration for two reasons.
+
+First, the relationship between syntax and semantics such as soundness and completeness should be realized in a natural way. 
+For this purpose, we find that simultaneous substitution provides a convenient way in establishing the relationship, see the Soundness (Theorem \ref{soundness}) and the Universal Completeness (Theorem \ref{universal}). In Section \ref{three}, we will also see that \textit{simultaneous renaming} of constants plays an important role.
+
+The simultaneous substitution of finitely many terms for variables in a pseudo-term or a -formula is defined by a structural recursion as in Figure \ref{fig:substitution}. Only well-formed terms are substituted because substituting pseudo-terms could cause capture of variables.
+
+Second, because of the trace part, it is not clear to which class the resulting expression of a substitution should belong. Thus we decided to state clearly the type of the resulting expression in the definition of substitution.
+
+Let $e$ be a pseudo-term or a -formula, $\ell$ a trace, $\eta = (x_1, u_1), ..., (x_n,u_n)$ an association, where
+$u_i\in \tterm$.
+Then $\substa{e}{\eta}{\ell}$ denotes the simultaneous substitution of $u_i$ for $x_i$, $1 \le i \le n$, in $e$.
+The single substitution $\subst{e}{x}{u}{\ell} := \substa{e}{(x,u)}{\ell}$ is then a special case. Furthermore, we write $\substs{e}{x}{u}$ when $\ell = nil$ for better readability.
+
+The type of the resulting expression depends on $\ell$, not on the type of $e$. Intuitively, $\ell$ is the list of variables for which no substitution is allowed. The role of $\ell$ is well explained by the the abstraction case $(\ref{allBinder})$ in Figure \ref{fig:substitution}, where $\ell$ is extended by $x$ in order to forbid any substitution for $x$.
+Note that all insignificant variables are simply ignored by assigning them $\tCst\, 0$. They are variables occurring neither in $\ell$ nor in $x_1, ..., x_n$, cf. $(\ref{bvar-case})$.
+
+In particular, we have $\substa{t}{\eta}{nil} \in \tterm$ and $\substa{A}{\eta}{nil} \in \tfml$ independent of the type of $t$ or $A$. Consequently, we can use more intuitive definitions and proofs. For example, the left introduction rule of universal quantification in Figure \ref{ljt} can be formalized in the following form
+\[
+\seq{\Ga\mid \substs{A}{x}{t} \vd C}{\Ga\mid \forall x\, A \vd C}
+\]
+without referring to the well-formedness of $\substs{A}{x}{t}$. 
+Another case is the Universal Completeness (Theorem \ref{universal}), in which simultaneous substitution with destination is effectively used for a natural correspondence between semantics and syntax. A detailed explanation is given in Remark \ref{rem:universal}.
+
+In order to demonstrate that the substitution behaves as expected, we state two lemmata:
+
+\begin{lem}[Substitution Lemma]
+  Given two traces $m$ and $\ell$, let $e \in \tpterm\, m$ or $e \in \tpfml\, m$, $u \in \tterm$, and $\eta$ an association. Then we have
+  \begin{equation*}
+    \subst{(\substa{e}{\eta}{y::\ell})}{y}{u}{\ell} =
+    \substa{e}{(y,u)::\eta}{\ell}\,.
+  \end{equation*}
+\end{lem}
+
+\begin{lem}[Relocation and substitution]\label{lem:relocation}
+  Given three traces $k, m$, and $\ell$, let $e \in \tpterm \, m$ or $e\in \tpfml \, m$ and $\tPH(e) \tm k$. Then we have
+\begin{eqnarray*}
+  \substa{(\tlift^{m,k} (e))}{\eta}{\ell} & = & \substa{e}{\eta}{\ell}\, ,
+\end{eqnarray*}
+where $\tlift$ is $\ttlift$ or $\tflift$ depending on $e$. That is, relocation has no impact on substitution.
+\end{lem}
+
+\section{Intuitionistic sequent calculus LJT and Kripke semantics}\label{sec:ljt}
+Having defined the basic syntax, we provide in this section the deduction rules and a Kripke semantics for the Gentzen-style sequent calculus LJT. We will establish that LJT is sound and complete with respect to the Kripke semantics.
+
+\subsection{Intuitionistic sequent calculus LJT}
+
+\begin{figure}[t]
+\begin{center}
+\begin{tabular}{c@{\qquad}c}
+\seqr{}{\Ga \mid A \vd A}{(Ax)} &
+\seqr{\Ga \mid A \vd C & A \in \Ga}{\Ga \vd C}{(Contr)}\\[7ex]
+
+\seqr{\Ga \vd A & \Ga \mid B \vd C}{\Ga \mid A \to B \vd C}{(\to_L)} &
+\seqr{A :: \Ga \vd B}{\Ga \vd A\to B}{(\to_R)} \\[7ex]
+
+\seqr{\Ga\mid \substs{A}{x}{t} \vd C}{\Ga\mid \forall x\, A \vd C}{(\forall_L)} &
+\seqr{\Ga \vd \substs{A}{x}{c} & \text{for some } c \notin \tOC(A, \Ga)}{\Ga\vd  \forall x\, A}{(\textit{Exists-Fresh-}\forall_R)}\\[2ex]
+\end{tabular}
+\end{center}
+
+\hrulefill
+\caption{Cut-free LJT}
+\label{ljt}
+\end{figure}
+ 
+For the presentation of predicate logic, we adopt sequent calculus to represent proofs. The advantage of such an approach is that it has an easy-to-define notion of normal form (it is merely the absence of the cut rule). 
+A disadvantage is that it is less natural than the so-called natural deduction. However, natural deduction has already been used in Coquand~\cite{cCoquand93} and we found interesting to try an alternative approach.
+
+The Gentzen-style sequent calculus LJT presented in Figure \ref{ljt} is obtained from the intuitionistic sequent calculus LJ by restricting the use of the left introduction rules of the implication and the universal quantification. 
+A sequent has one of the forms $\Ga\mid A \vd C$ or $\Ga \vd C$, where $A, C$ are well-formed formulae and the context $\Ga=A_1,...,A_n$ is a list of well-formed formulae. The right side of the vertical bar ``$\mid$'' in the antecedent is called {\em stoup}, and it contains the principal formula (Hauptformel) of the corresponding rule.
+
+Herbelin \cite{Herbelin94,HerbelinPhD} and Mints \cite{mints96} showed that there is a one-to-one correspondence between cut-free proofs in LJT and normal $\la$-terms. 
+To be more precise, cut-elimination matches normalization in the $\overline{\lambda}$-calculus, which is a suitable variant of $\lambda$-calculus for the sequent calculus structure. This implies that LJT is a Curry-Howard-de Bruijn-style proof system.
+
+\begin{rem}
+  The Curry-Howard-de Bruijn approach requires the ability to distinguish between the different occurrences of a given formula in the context $\Gamma$ of a sequent $\Gamma \vdash A$. There are two canonical ways to achieve this: one either considers contexts as sets of {\em named} formulae, where the names are used to distinguish between the different occurrences of the same formula, or one considers contexts as list (i.e., ordered sets) of formulae, in which case the underlying order provides a way to distinguish between different occurrences of the same formula. 
+
+  On the other hand, considering contexts as sets precludes the correspondence with $\lambda$-calculus as, for instance, there would be only one proof of $A \imp A \imp A$ while there are two $\lambda$-terms of type $A \imp A \imp A$. Strictly speaking, considering contexts as multisets does not help since there is no way to distinguish between two instances of the same formula in a multiset. If the multiset is equipped with a convention to distinguish between the different occurrences of the same formula (e.g., Troelstra and Van Dalen's crude discharge convention~\cite[Ch.~1]{TroelstraVanDalen88}), this amounts to giving names to formulae (see Geuvers~\cite{GeuversPhD} for a discussion).
+
+For our work, however, Curry-Howard-de Bruijn correspondence itself is not on the program. Once again. this is because derivability is a predicate and not a part of the domain of the discourse. Furthermore, contexts can be regarded as finite sets although we used lists of formulae to represent them.
+\end{rem}
+
+We emphasize that all the formulae occurring in derivations are well-formed formulae and that the deduction rules can be represented exactly as in Figure \ref{ljt}.
+This is possible because we can primarily focus on $\tfml = \tpfml \, nil$.
+Note that typing rules are usually defined for arbitrary pseudo-terms, and then people show that only well-formed expressions are involved in typing rules.
+
+  If we had followed, e.g., the locally-named style of McKinna and Pollack \cite{mcpol93,mcpol99}, we should have defined the deduction rules with pseudo-formulae, implicitly thinking of well-formed formulae. The rule $(Ax)$, e.g., would need a side condition that all formulae involved are well-formed:
+  \[
+  \seq{Ok(A::\Ga)}{\Ga \mid A \vd A}
+  \]
+  where $Ok(\De)$ denotes that all formulae in the context $\De$ are well-formed formulae. Subsequently, we could prove the following: if $\Ga \vdash A$ or $\Ga \mid A \vdash C$ then $Ok(A::C::\Ga)$.
+  As we have already mentioned, this approach requires extra syntax and lemmata about well-formed formulae and contexts (cf. McKinna and Pollack \cite{mcpol93,mcpol99} and Aydemir et al. \cite{engineering}).
+  
+\subsection{Kripke semantics}
+
+\begin{figure}[t]
+\textbf{Kripke models:} $\calk = (\calw, \le,\Vd , \cald, V )$, where $(\calw, \le)$ is a partially ordered set, $\cald$ is the domain of $\calk$, $V$ is a function such that
+\begin{enumerate}
+\item $V(c) \in D$ for all $c \in \tnat$,
+\item $V(f) : \cald \to \cald \to \cald$ for all $f \in \tfunction$,
+\end{enumerate}
+and $\Vd$ is a relation between $\calw$, $\texttt{predicate}$, and $\cald$
+such that
+\[
+\text{if}\,\, (w \le w' \text{ and } w \Vd P\,
+d)\,\,\text{holds,}
+\,\,\text{then}\,\, w' \Vd P\,d\,.
+\]
+Here $w, w' \in \calw$, $P \in \tpredicate$, and $d \in \cald$.\medskip
+
+\textbf{Interpretation of pseudo-terms:} Let $\eta \in \tlist\, (\tnat \ast \cald)$
+\begin{eqnarray}
+  (\tBvar\, x\, h) [\eta] & = &
+  \begin{cases}
+    \eta(x) & \text{if } x\in \dom(\eta)\\
+    V(0) & \text{otherwise}
+  \end{cases}\nonumber\\
+  (\tCst\, c) [\eta] & = & V(c) \label{kripke-cst}\\
+  (f\, t_1\, t_2 ) [\eta] & = & V(f)(t_1 [\eta], t_2 [\eta])\nonumber
+\end{eqnarray}
+Here $\eta(x) = d$ if $(x,d)$ is the first occurrence in $\eta$ from left.\medskip
+
+\textbf{Forcing:} The relation $\Vd$ is inductively extended to general sentences in the extended language.
+\begin{eqnarray}
+  w \Vd (P\, t)[\eta] & \text{iff} & w \Vd P\, (t[\eta]) \nonumber\\
+  w \Vd (A \to B)[\eta] & \text{iff} & \text{for all $w' \ge w$, $w' \Vd A [\eta]$ implies $w' \Vd B[\eta]$} \nonumber\\
+  w \Vd (\forall x\,  A)[\eta] & \text{iff} & \text{for all $d \in \cald$, $w\Vd A [(x, d) :: \eta]$} \label{kripke-all} \\[2ex]
+  w \Vd \Ga & \text{iff} & \text{$w \Vd A [nil]$ for all $A \in \Ga$} \nonumber
+\end{eqnarray}
+We sometimes write $\Vd_{\!\calk}$ when necessary.
+
+\hrulefill
+  \caption{Kripke semantics}
+  \label{fig:kripke}
+\end{figure}
+
+Kripke semantics was created in the late 1950s and early 1960s by Saul Kripke \cite{kripke59,kripke63}. It was first made for modal logic, and later adapted to intuitionistic logic and other non-classical or classical systems (cf. Troelstra and van Dalen \cite{TroelstraVanDalen88} and Ilik et al. \cite{danko-gyesik}). Here, we use the conventional Kripke model adopted by Troelstra and van Dalen \cite{TroelstraVanDalen88}.
+
+A Kripke model $\calk = (\calw, \le,\Vd , \cald, V )$ is a tuple of a
+partially-ordered set $\calw$ of {\em worlds}, a domain $\cald$,
+interpretations of constant and function symbols into the domain, and a
+relation between worlds, predicates, and domain elements
+(cf. Figure \ref{fig:kripke}).
+
+Note that the interpretation of pseudo-terms is made total by ignoring
+insignificant variables. Furthermore, the being-in-a-list part of a term
+is simply thrown away. Consequently, the trace relocation has no impact on the Kripke semantics.
+
+Let a Kripke model $\calk = (\calw, \le, \Vd, \cald, V)$ and an
+association $\eta \in \tlist\, (\tnat \ast \cald)$ be given. 
+
+\begin{thm}[Relocation-irrelevance]\label{thm:relocation}
+  Let $m$ be a trace, $t \in \tpterm\, m$, and $A \in \tpfml\, m$. 
+  \begin{enumerate}
+  \item $ t [\eta] = \ttlift(t) [\eta]$.
+
+  \item $w \Vd A [\eta]$ if and only if $w \Vd  \tflift(A) [\eta]$.
+  \end{enumerate}
+\end{thm}
+
+\noindent The monotonicity of the forcing relation with respect to the worlds relation $\le$ can be proved by a simple structural induction:
+
+\begin{lem}[Monotonicity] 
+  Let $m$ be a trace. Given a pseudo-formula $A \in \tpfml\, m$, if $w \Vd A[\eta]$ and $w \le w'$ hold, so does $w' \Vd A [\eta]$.
+\end{lem}
+
+\begin{rem}\label{fun-equivalence}
+The standard Kripke semantics uses cumulative domains $\cald (w), w\in \calw$ instead of a fixed domain $\cald$ such that $\cald (w) \subseteq \cald (w')$ when $w \le w'$. Then, the universal quantification case $(\ref{kripke-all})$ should have the following form:
+\[
+\text{$w \Vd (\forall x\, A) [\eta]$ iff, for all $w'\ge w$ and $d\in D(w)$, $w' \Vd A\, [(x,d)::\eta]$}.
+\]
+In our case, where $\to$ and $\forall$ are the only logical symbols, two styles are ``functionally equivalent'' in the sense that soundness and completeness hold in both cases (cf. Herbelin and Lee \cite{wollic09}).
+\end{rem}
+
+\subsection{Soundness}
+The soundness of $\ljt$ with respect to Kripke semantics is relatively simple.
+
+\begin{thm}[Soundness]\label{soundness}
+  Let $A :: C :: \Ga$ be a context.
+  \begin{enumerate}
+  \item Suppose $\Ga \vd C$ holds. Then for any Kripke model $\calk =
+    (\calw, \le,\Vd_\calk, \cald, V)$ and any $w \in \calw$, if $w \Vd_{\!\calk} \Ga$ holds, so does $w \Vd_{\!\calk} C [nil]$.
+  \item Suppose $\Ga \mid A \vd C$ holds. Then for any Kripke model $\calk = (\calw, \le,\Vd_\calk, \cald, V)$ and any $w \in \calw$, if $w \Vd_{\!\calk} \Ga$ and $w \Vd_{\!\calk} A [nil]$ hold, so does $w \Vd_{\!\calk} C [nil]$.
+  \end{enumerate}
+\end{thm}
+
+If we had included parameters, the soundness proof
+would be a simple mutual induction on the derivation, cf. Herbelin and Lee \cite{wollic09}. However, because we use constants instead, the ({\it Exists-Fresh}-$\forall_R$) rule requires more attention.
+
+Suppose that $\Ga\vd  \forall x\, A$ follows from $\Ga \vd \substs{A}{x}{c}$ for a constant $c \notin \tOC(A, \Ga)$ that $w \Vd \Ga$ holds. Then, given an arbitrary $d \in \cald$, we have to show that
+\begin{equation}
+  \label{eq:forall}
+  w \Vd_{\!\calk} A [(x,d)::nil]
+\end{equation}
+holds. 
+At this point, the premise of ({\it Exists-Fresh}-$\forall_R$) seems to provide too weak an induction hypothesis. That is, a constant is associated with a \textit{fixed} value, while the interpretation of the universal quantification involves all possible values from the domain. 
+
+The solution lies in the fact that fresh constants are as good as fresh parameters. Syntactically, this fact is represented by the renaming lemma (Lemma \ref{renaming}). At the semantic level, this corresponds to creating a new Kripke model from a given one such that the semantics remains nearly identical.
+
+\begin{defi}
+  Given a Kripke model $\calk = (\calw, \le, \Vd, \cald, V)$, a constant $c$, and a value $d \in \cald$, we define a new Kripke model $\calk_{c,d} := (\calw, \le,\Vd, \cald, V_{c,d})$, where
+  \begin{eqnarray*}
+    V_{c,d} (c') :=
+    \begin{cases}
+      d & \text{if } c = c', \\
+      V(c') & \text{otherwise.}
+    \end{cases}
+  \end{eqnarray*}
+\end{defi}
+That is, $\calk$ and $\calk_{c,d}$ differ only in the evaluation of the constant $c$. Consequently, we can present the following lemma:
+
+\begin{lem}[Forcing with fresh constants]\label{create-kripke}
+  Given a pseudo-formula $A$ and a constant $c$, if $c$ does not occur
+  in $A$, then the following holds: For any Kripke model $\calk = (\calw,
+  \le, \Vd, \cald, V)$, any $w \in \calw$, and any $d \in \cald$:
+  \begin{eqnarray*}
+    w \Vd_{\!\calk} A [\eta] \iff w \Vd_{\!\calk_{c,d}} A [\eta]
+  \end{eqnarray*}
+under the condition that $\tPH (A) \tm \dom (\eta)$. (Note that $\tPH (A) \tm \dom (\eta)$ trivially holds when $A$ is a well-formed formula.)
+\end{lem}
+
+Now, we use Lemma \ref{create-kripke} to show that $\om
+\Vd_{\!\calk_{c,d}} \Ga$. Consequently,  by induction hypothesis, we
+also have $w \Vd_{\!\calk_{c,d}} (\substs{A}{x}{c}) [nil]$. Finally, we
+can prove $(\ref{eq:forall})$:
+\begin{eqnarray}
+  w \Vd_{\!\calk_{c,d}} (\substs{A}{x}{c}) [nil] & \iff & w \Vd_{\!\calk_{c,d}} A [(x,d)::nil] \label{eq:subst-force}\\
+  & \iff & w \Vd_{\!\calk} A [(x,d)::nil], \nonumber
+\end{eqnarray}
+where the equivalence in $(\ref{eq:subst-force})$ is obviously true.
+
+\subsection{Universal Completeness}
+The universal Kripke model $\calu$ consists of contexts as worlds, the sub-context relation $\tm$, and the provability for atomic formulae, and $\tterm$ as the constant domain:
+
+\begin{defi}[Universal Kripke Model]\label{def:universal}
+$\calu = (\tcontext, \subseteq, \Vd_\calu, \tterm, V_\calu)$ where
+  \[
+  V_\calu(c) = c \quad\text{and}\quad V_\calu(f)(t_1, t_2) = f\, t_1\, t_2\, .
+  \]
+Furthermore, $\Ga \Vd_\calu P\, t \text{ \,iff\, } \Ga \vd P\,t$ holds.
+\end{defi}
+
+Note that in the universal model $\calu$, the interpretation of
+pseudo-terms corresponds to substitution: Given a term $t \in\tpterm \, m$ and an association $\eta = (x_1,u_1),...,(x_n, u_n)$, where $u_i \in \tterm$, we have
+$t[\eta] = \substa{t}{\eta}{nil}$. The Universal Completeness, as stated
+below, indicates that we have a similar correspondence between forcing and deduction.
+
+\begin{thm}[Universal Completeness]\label{universal}
+  Let $A \in \tpfml\, m$, $\Ga \in \tcontext$, and $\eta$ be an association. Then, $\Ga \Vd_{\!\calu} A [\eta]$ implies $\Ga \vd  \substa{A}{\eta}{nil}$.
+\end{thm}
+
+\begin{rem}\label{rem:universal}
+  We emphasize that simultaneous substitution enables us to have this natural correspondence between syntax and semantics. Note also that $A$ is an arbitrary pseudo-formula, i.e., no well-formedness is assumed. This implies that the theorem can be proved by a simple structural induction on $A$. This is a point where simultaneous substitution with destination plays an important role.
+\end{rem}
+
+\noindent The Universal Completeness can be proved by a mutual induction
+ with the following fact:
+\begin{quote}
+  If  $\forall (C : \tfml)\, (\Ga' : \tcontext)\, (\Ga \tm \Ga' \,\, \wedge\,\, \Ga' \mid \substa{A}{\eta}{nil} \vd C \To \Ga' \vd C)$ holds,
+  so does $\Ga \Vd_\calu A [\eta]$.  
+\end{quote}
+
+Using this fact, one can easily show that $\Ga \Vd_\calu \Ga$ holds; consequently, we have the following:
+
+\begin{thm}[Completeness]\label{completeness}
+  Let $A$ be a formula and $\Ga$ a context. If, for any Kripke model
+  $\calk = (\calw, \le, \Vd, \cald, V)$ and any $w \in \calw$, $w \Vd A$
+  follows from $w \Vd \Ga$, then we have $\Ga \vd A$.
+\end{thm}
+
+\begin{rem}[With parameters]\label{var-cpltness}
+  Even if we had considered parameters, the domain of the universal Kripke model remains $\tterm$, the set of well-formed terms with possible occurrences of parameters.
+
+  Simultaneous substitution is of the form $\substa{A}{\rho,\eta}{\ell}$, where $\rho$ and $\eta$ are responsible for parameters and variables, respectively. Correspondingly, the forcing relation has the form $\om \Vd_\calk A [\rho, \eta]$. Finally, (Universal Completeness) changes slightly:
+  \begin{quote}
+    Given $A \in \tpfml\, m$, $\Ga \in \tcontext$, and two associations $\rho, \eta$, if $\tFV (A)\subseteq \dom (\rho)$ and $\Ga \Vd_{\!\calu} A [\rho,\eta]$, then $\Ga \vd  \substa{A}{\rho, \eta}{nil}$.    
+  \end{quote}
+Here, $\tFV(A)$ is the set of parameters occurring in $A$. Note that Theorem~\ref{universal} becomes a special case, where $\tFV(A) = \varnothing$.
+\end{rem}
+
+\subsection{Normalization by Evaluation}
+A combination of completeness and soundness leads to cut-admissibility. Let us assume that both $\Ga \mid A \vd B$ and $\Ga \vd A$ hold. Then, by Soundness $\Ga \Vd_\calu A$, hence $\Ga \Vd_\calu B$ holds by Soundness again. Consequently, $\Ga \vd B$ holds by Universal Completeness.
+
+\begin{thm}[Cut-admissibility]
+  Let $A, B$ be formulae and $\Ga$ a context. Then, $(Cut)$ is admissible in $\ljt$:
+  \begin{equation*}
+    \vcenter{\infer[(Cut)]{\Ga \vd B}{\Ga \mid A \vd B & \Ga \vd A}}
+  \end{equation*}
+\end{thm}
+
+
+Because $(Cut)$ is a semantically sound rule, a composition of (Soundness) and (Universal Completeness) normalizes any proof with $(Cut)$ to a cut-free proof. \footnote{A program extraction (which is available in Coq) from the composition would provide a functional program that produces a cut-free proof from a deduction with $(Cut)$. We believe that the normalization follows the reduction semantic of $\ljt$.}
+
+\section{Exists-Fresh quantification, a variable binding}\label{three}
+One of primary issues addressed in our work is the formal handling
+ of $\forall$-quantification. This includes the following:
+\begin{itemize}
+\item Formalization of a proof system with adequate treatment of the freshness condition in the $\forall$ right introduction rule (see Figure \ref{ljt});
+
+\item Statement and proof of a weakening lemma for this proof system, which preserves the freshness condition of derivations (see Lemma \ref{weakening} below);
+
+\item Ensuring  well-formed expressions (see Lemma \ref{ph-property}); 
+
+% \item Definition of a notion of association of the variables occurring below a binder (see Remark \ref{fun-equivalence});
+
+\item Characterization of a set of terms that will serve as standard model for the completeness proof (we have to ensure that any variable used in a binder avoids the variables in terms) (see Remark \ref{var-cpltness}).
+\end{itemize}
+
+The second point is closely related to the first point, i.e., to the representation style of $\forall$ right quantification, while the others are not related. In this section, we discuss at some length the issue of adequate formal representations of quantification rules.
+
+
+For the formal representation of $\forall$ right quantification, we use the so-called (Exists-Fresh) style because we believe it is the closest approach to the pen-and-paper representation. Indeed, the rule $(\textit{Exists-Fresh-}\forall_R)$ reflects the intuition that, if the premise holds for {\em some} $c$ that does not occur free in $\Ga$ nor in $\forall x\, A$, $c$ should not be affected by any operation during the deduction, and therefore, it should be possible for an arbitrary term $t$ that $\Ga \vd A(t)$ holds.
+
+\paragraph{\bf Weakening and renaming}
+There is a well-known issue about the (Exists-Fresh) style: It provides \textit{too weak} an induction principle. For example, let us try to prove the weakening lemma below in an intuitive way.
+
+\begin{lem}[Weakening]\label{weakening}
+  Let $A, C$ be formulae and $\Ga, \Ga'$ contexts such that $\Ga \tm \Ga'$.
+  \begin{enumerate}
+  \item $\Ga \vd A$ implies $\Ga' \vd A$.
+  \item $\Ga \scol A \vd C$ implies $\Ga' \scol A \vd C$.
+  \end{enumerate}
+\end{lem}
+
+When proving this lemma by induction on the given deduction rules, in the case for $(\textit{Exists-Fresh-}\forall_R)$, we are given a derivation ending with
+\[
+\seq{\Ga \vd \substs{A}{x}{c} & \text{for some } c \notin \tOC(A, \Ga)}{\Ga\vd  \forall x\, A}
+\]
+and an induction hypothesis 
+\begin{equation*}\label{c-fresh}
+\Ga' \vd \substs{A}{x}{c}
+\end{equation*}
+for an arbitrary $\Ga'$ such that $\Ga \subseteq \Ga'$. Now, we must
+conclude that $\Ga' \vd \forall x\, A$ holds. However, we cannot
+directly apply the $(\textit{Exists-Fresh-}\forall_R)$ because we do not know whether $c \notin \tOC(\Ga')$. To ensure the freshness of the instance $c$, we can choose another fresh constant $d$ such that $d \notin \tOC(\Ga')$, expecting that the following holds:
+\begin{equation}\label{d-fresh}
+\Ga' \vd \substs{A}{x}{d}\,.
+\end{equation}
+This, however, would require renaming of constants.
+
+(Simultaneous) Renaming is a kind of (simultaneous) substitution where constants are replaced with constants. In the following, $\rho = (c_1,d_1),...,(c_n, d_n)$ stands for a simultaneous renaming.
+Given a pseudo-formula $A \in \tpfml \, m$, $\rho \, A$ stands for a
+pseudo-formula in $\tpfml \, m$ where each constant $c_i$ occurring in
+$A$ is simultaneously replaced with $d_i$. For a context $\Ga$, $\rho\,
+\Ga$ is canonically defined. Note that $\substs{A}{x}{d} \equiv \rho\,(\substs{A}{x}{c})$, where $\rho = (c,d)$.
+
+\begin{lem}[Renaming]\label{renaming}
+  Let $A, C$ be formulae and $\Ga$ a context. Assume $c$ is a constant such that $c \notin \tOC(C, \Ga)$. Given an arbitrary constant $d$, if $\rho = (c,d)$, then we have:
+  \begin{enumerate}
+  \item $\Ga \vd A$ implies $\Ga \vd \rho\, A$.
+  \item $\Ga \scol A \vd C$ implies $\Ga \scol \rho\, A \vd C$.
+  \end{enumerate}
+\end{lem}
+
+When proving (Renaming) by induction on the deduction, the following case is critical. Let us assume that the deduction ends with an application of $(\textit{Exists-Fresh-}\forall_R)$ as follows:
+\[
+\seq{\Ga \vd \substs{B}{y}{c'}{} & \text{for some } c' \notin \tOC(B, \Ga)}{\Ga\vd  \forall y\, B}
+\]
+where $c \neq c'$. 
+Using induction hypothesis, we can show that, for $\rho = (c,d)$,
+\begin{equation}
+  \label{eq:less-fresh}
+  \Ga \vd \substs{(\rho \, B)}{y}{c'}\,.  
+\end{equation}
+However, we cannot apply $(\textit{Exists-Fresh-}\forall_R)$ because we do not know whether $c' \notin \tOC(\rho \, B, \Ga)$.
+We would need an extra call to (Renaming) in order to prove (Renaming).
+
+It is very common in pen-and-paper work of proof theory to use proof-length induction to solve this problem. The proof-length of a derivation is the length of the longest path of its derivation tree. In this case, we can prove that $\Ga \vd \rho\, B$ can be proved with the same proof-length as that of $\Ga \vd B$ for an arbitrary formula $B$. Therefore, we can replace $c'$ in $(\ref{eq:less-fresh})$ with a totally fresh $c''$ such that the induction hypothesis can be applied. However, this solution requires relatively heavy infrastructure about proof-length.
+
+\paragraph{\bf Equivalence of three well-known quantification styles} 
+Another standard way to solve the aforementioned problem is to strengthen the induction principle for deduction by changing $(\textit{Exists-Fresh-}\forall_R)$ to one of the following styles:
+
+\[
+  \seqr
+  {\Ga \vd \substs{A}{x}{c} & \text{for all } c \not\in \tOC(\forall x\,A :: \Ga)}
+  {\Ga \vd \forall x\, A}
+  {(\textit{All-Fresh-}\forall_R)}
+\]
+
+\noindent or
+
+\[
+  \seqr
+  {\Ga \vd \substs{A}{x}{c} & \text{for all } c \not\in L}
+  {\Ga \vd \forall x\, A}
+  {(\textit{Cofinite-}\forall_R)}
+\]
+
+\noindent where $L$ is a finite set of constants. 
+
+The (All-Fresh) style is used in McKinna and Pollack \cite{mcpol93,mcpol99} and in Leroy's solution \cite{leroy-nameless} to the POPLmark Challenge, while in Aydemir et al. \cite{engineering}, the efficiency of the cofinite quantification style is well explained. Furthermore, it is proved in each paper that the typability of terms (provability of formulae in our work) remains the same.
+
+Let $\ljt_{a}$ and $\ljt_{c}$ be variants of LJT where ({\it Exists-Fresh-}$\forall_R$) is replaced with ({\it All-Fresh-}$\forall_R$) and ({\it Cofinite-}$\forall_R$), respectively. In both $\ljt_{a}$ and $\ljt_{c}$, (Weakening) can be proved easily by a simple induction on the deduction and (Renaming) is not necessary anymore. Let $\vda$ denote the derivation in $\ljta$, and $\vdc$, in $\ljt_c$.
+
+The equivalence of the three styles can be proved in a straightforward manner by structural induction on the deduction, except for the following case:
+\begin{equation}
+  \label{eq:equiv-ljta}
+  \Ga \vd A \,\,\Rightarrow\,\, \Ga \vda A  
+\end{equation}
+A naive approach would encounter the same problem as before, i.e., the
+induction hypothesis in the $(\textit{Exists-Fresh-}\forall_R)$ is too
+weak. Following McKinna and Pollak, we could show $(\ref{eq:equiv-ljta})$
+using the fact
+that \textit{bijective renaming} respects $\vda$:
+\begin{equation}
+  \label{eq:bij-renaming}
+  \Ga \vda A \,\,\Rightarrow\,\, \rho\,\Ga \vda \rho\, A.
+\end{equation}
+where $\rho\,(\cdot)$ stands for a {\em bijective} renaming of constants (cf. Section 5.2.1 in \cite{mcpol99}). 
+Leroy \cite{leroy-nameless} follows a similar approach using \textit{swap} functions, which are special forms of bijective renaming.
+
+\paragraph{\bf Using simultaneous renaming}
+Although the equivalence proof is relatively straightforward, we have to check whether we really need to strengthen the induction principle in order to prove that (Weakening) and (Renaming) hold in LJT. This is also related to the question whether the excursion to $\ljt_a$ or $\ljt_c$ is necessary.
+
+If we revisit the points where the intuitive proofs of (Weakening) and
+(Renaming) could not proceed further, we notice that (Weakening) needs
+(Renaming) and that (Renaming) in turn needs to be proved by using
+simultaneous renaming, as in $(\ref{eq:bij-renaming})$. This indicates
+that (Weakening) and (Renaming) could be proved together based on \textit{simultaneous renaming}. 
+
+\begin{thm}[Generalized Weakening]\label{gen-weakening}
+    Let $A, C$ be formulae, $\Ga, \Ga'$ contexts such that $\Ga \tm \Ga'$, and $\rho$ an arbitrary renaming.
+  \begin{enumerate}
+  \item $\Ga \vd A$ implies $\rho\, \Ga' \vd \rho\, A$.
+  \item $\Ga \scol A \vd C$ implies $\rho\, \Ga' \scol \rho\, A \vd \rho\, C$.
+  \end{enumerate}
+\end{thm}
+Note that there are no side conditions on the renaming $\rho$, i.e., no
+bijectivity is required. Both claims can be proved by a simple mutual structural induction. Finally, (Weakening) and (Renaming) are special forms of (Generalized Weakening).
+Further, we remark that $(\ref{eq:equiv-ljta})$ can be proved in a similar way:
+\begin{equation*}
+  \label{eq:equiv-ljta1}
+  \Ga \vd A \,\,\Rightarrow\,\, \rho\, \Ga \vda \rho\, A  
+\end{equation*}
+where $\rho$ denotes an arbitrary renaming.
+
+\section{Conclusion}\label{sec:conclusion}
+We proposed a new first-order representation, called representation with locally traced names, of logical formal systems with variable binding. 
+The main feature is that an extra syntax for well-formed terms and formulae are not necessary even if two sorts of variable names are used.
+In order to demonstrate the adequacy of our representation style, we formalized in Coq the soundness and completeness of intuitionistic first-order predicate logic with respect to a Kripke semantics. As a result, the cut-elimination follows based on normalization by evaluation (NBE), i.e., by the composition of completeness and soundness. We remark that the mechanized proofs are nearly identical to the informal proofs given by Herbelin and Lee \cite{wollic09}.
+
+
+In addition to the new representation style, we incorporated two more
+suggestions that helped us reduce the basic infrastructure with respect
+to variable binding and substitution. First, merging parameters with
+constants enabled us to avoid several substitution issues. Second, using
+simultaneous substitution and renaming, it was possible to avoid any
+type of length induction or excursion to other equivalent deduction
+systems. In particular, this point forced us to reinvestigate the role
+of the (Exists-Fresh) style of first-order structure
+quantification. From our experience, we conclude that the (Exists-Fresh)
+style is probably the best solution for the issue of quantification
+style. Best in the sense that it is closest to the pen-and-paper style
+and that no functional types are involved in dealing with variable
+binding. 
+
+In the future, we plan to focus on our approach when derivability is a
+part of the domain of the discourse. This will be the case if one wants
+to prove that the cut-free derivation obtained by semantic
+cut-elimination actually implements $\be$-normalization and
+$\eta$-expansion over derivations, as shown by Coquand
+\cite{cCoquand93,cCoquand02} in her semantic normalization proof for the
+implication logic.
+
+%\begin{acknowledgements}
+%If you'd like to thank anyone, place your comments here
+%and remove the percent signs.
+%\end{acknowledgements}
+
+% BibTeX users please use one of
+%\bibliographystyle{spbasic}      % basic style, author-year citations
+\bibliographystyle{spmpsci}      % mathematics and physical sciences
+%\bibliographystyle{spphys}       % APS-like style for physics
+\bibliography{locally-traced}   % name your BibTeX data base
+
+% Non-BibTeX users please use
+%\begin{thebibliography}{}
+%
+% and use \bibitem to create references. Consult the Instructions
+% for authors for reference list style.
+%
+%\bibitem{RefJ}
+% Format for Journal Reference
+%Author, Article title, Journal, Volume, page numbers (year)
+% Format for books
+%\bibitem{RefB}
+%Author, Book title, page numbers. Publisher, place (year)
+% etc
+%\end{thebibliography}
+
+\end{document}
+
