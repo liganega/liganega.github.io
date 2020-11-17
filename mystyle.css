@@ -21,6 +21,10 @@ li:not(:last-child) {
     margin-bottom: 10px 
 }
    
+img {
+    border-radius: 5px;
+}
+
 /* 사진을 클릭할 때 확대창 띄우기 */
 /* Image Modal 활용 */
 #myImg {
