@@ -13,6 +13,10 @@ a:visited {
     text-decoration: none;
 }
 
+a.black:link {
+    color: black;
+}
+
 li:not(:last-child) {
     margin-bottom: 10px 
 }
